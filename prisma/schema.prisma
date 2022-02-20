@@ -45,3 +45,8 @@ model Group {
   faculty Faculty @relation(fields: [facultyId], references: [id])
   facultyId String
 }
+
+model Country {
+  id      String @id @default(dbgenerated("uuid_generate_v4()"))
+  name    String @db.VarChar(50) @unique
+}
