@@ -14,6 +14,7 @@ model Hostel {
   id      String @id @default(dbgenerated("uuid_generate_v4()"))
   name    String @db.VarChar(50) @unique
   floors  Floor[]
+  faculties Faculty[]
 }
 
 model Floor {
@@ -29,4 +30,10 @@ model Room {
   name      String @db.VarChar(50)
   floor     Floor @relation(fields: [floorId], references: [id])
   floorId   String
+}
+
+model Faculty {
+  id      String @id @default(dbgenerated("uuid_generate_v4()"))
+  name    String @db.VarChar(50) @unique
+  hostels Hostel[]
 }
