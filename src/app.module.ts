@@ -11,7 +11,16 @@ import { CountriesModule } from './countries/countries.module';
 import { PlacesModule } from './places/places.module';
 
 @Module({
-  imports: [PrismaModule, HostelsModule, FloorsModule, RoomsModule, FacultiesModule, GroupsModule, CountriesModule, PlacesModule],
+  imports: [
+    PrismaModule,
+    HostelsModule,
+    FloorsModule,
+    RoomsModule,
+    FacultiesModule,
+    GroupsModule,
+    CountriesModule,
+    PlacesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
