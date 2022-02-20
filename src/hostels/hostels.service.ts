@@ -1,28 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { Hostel, Prisma } from '@prisma/client';
+import { Hostel } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateHostelDto } from './dto/create-hostel.dto';
+import { UpdateHostelDto } from './dto/update-hostel.dto';
 
 @Injectable()
 export class HostelsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: Prisma.HostelCreateInput): Promise<Hostel> {
+  async create(data: CreateHostelDto): Promise<Hostel> {
     return this.prisma.hostel.create({ data });
   }
 
-  async findMany() {
+  async findMany(): Promise<Array<Hostel>> {
     return this.prisma.hostel.findMany();
   }
 
-  async findOne(id: string) {
-    return `This action returns a #${id} hostel`;
+  async findOne(id: string): Promise<Hostel> {
+    return this.prisma.hostel.findUnique({ where: { id } });
   }
 
-  async update(id: string, data: Prisma.HostelUpdateInput) {
+  async update(id: string, data: UpdateHostelDto): Promise<Hostel> {
     return this.prisma.hostel.update({ data, where: { id } });
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<Hostel> {
     return this.prisma.hostel.delete({ where: { id } });
   }
 }

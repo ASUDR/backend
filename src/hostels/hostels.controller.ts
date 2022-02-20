@@ -16,8 +16,8 @@ export class HostelsController {
   constructor(private readonly hostelsService: HostelsService) {}
 
   @Post()
-  async create(@Body() createHostelDto: CreateHostelDto) {
-    return this.hostelsService.create(createHostelDto);
+  async create(@Body() dto: CreateHostelDto) {
+    return this.hostelsService.create(dto);
   }
 
   @Get()
@@ -31,11 +31,8 @@ export class HostelsController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateHostelDto: UpdateHostelDto,
-  ) {
-    return this.hostelsService.update(id, updateHostelDto);
+  async update(@Param('id') id: string, @Body() dto: UpdateHostelDto) {
+    return this.hostelsService.update(id, dto);
   }
 
   @Delete(':id')
