@@ -16,15 +16,15 @@ export class HostelsService {
     return this.prisma.hostel.findMany();
   }
 
-  async findOne(id: string): Promise<Hostel> {
+  async findOne(id: number): Promise<Hostel> {
     return this.prisma.hostel.findUnique({ where: { id } });
   }
 
-  async update(id: string, data: UpdateHostelDto): Promise<Hostel> {
+  async update(id: number, data: UpdateHostelDto): Promise<Hostel> {
     return this.prisma.hostel.update({ data, where: { id } });
   }
 
-  async remove(id: string): Promise<Hostel> {
+  async remove(id: number): Promise<Hostel> {
     return this.prisma.hostel.delete({ where: { id } });
   }
 }

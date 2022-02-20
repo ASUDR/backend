@@ -27,16 +27,16 @@ export class FloorsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.floorsService.findOne(id);
+    return this.floorsService.findOne(+id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateFloorDto) {
-    return this.floorsService.update(id, dto);
+    return this.floorsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.floorsService.remove(id);
+    return this.floorsService.remove(+id);
   }
 }

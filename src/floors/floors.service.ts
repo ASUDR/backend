@@ -16,15 +16,15 @@ export class FloorsService {
     return this.prisma.floor.findMany();
   }
 
-  async findOne(id: string): Promise<Floor> {
+  async findOne(id: number): Promise<Floor> {
     return this.prisma.floor.findUnique({ where: { id } });
   }
 
-  async update(id: string, data: UpdateFloorDto): Promise<Floor> {
+  async update(id: number, data: UpdateFloorDto): Promise<Floor> {
     return this.prisma.floor.update({ data, where: { id } });
   }
 
-  async remove(id: string): Promise<Floor> {
+  async remove(id: number): Promise<Floor> {
     return this.prisma.floor.delete({ where: { id } });
   }
 }

@@ -11,14 +11,14 @@ datasource db {
 }
 
 model Hostel {
-  id      String @id @default(cuid())
-  name    String @unique
+  id      Int     @default(autoincrement()) @id
+  name    String  @unique
   floors  Floor[]
 }
 
 model Floor {
-  id        String @id @default(cuid())
-  name      String @unique
-  hostel    Hostel @relation(fields: [hostelId], references: [id])
-  hostelId  String
+  id        Int     @default(autoincrement()) @id
+  name      String  @unique
+  hostel    Hostel  @relation(fields: [hostelId], references: [id])
+  hostelId  Int
 }

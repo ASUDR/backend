@@ -1,4 +1,4 @@
-import { IsDefined, IsString, MaxLength } from 'class-validator';
+import { IsDefined, IsInt, IsString, MaxLength } from 'class-validator';
 
 export class CreateFloorDto {
   @IsDefined()
@@ -7,6 +7,6 @@ export class CreateFloorDto {
   name: string;
 
   @IsDefined()
-  @IsString()
-  hostelId: string;
+  @IsInt()
+  hostelId: number;
 }

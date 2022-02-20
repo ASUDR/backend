@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "Floor" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "hostelId" TEXT NOT NULL,
+    "hostelId" INTEGER NOT NULL,
 
     CONSTRAINT "Floor_pkey" PRIMARY KEY ("id")
 );
