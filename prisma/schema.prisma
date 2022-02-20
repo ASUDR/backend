@@ -36,4 +36,12 @@ model Faculty {
   id      String @id @default(dbgenerated("uuid_generate_v4()"))
   name    String @db.VarChar(50) @unique
   hostels Hostel[]
+  groups Group[]
+}
+
+model Group {
+  id      String @id @default(dbgenerated("uuid_generate_v4()"))
+  name    String @db.VarChar(50) @unique
+  faculty Faculty @relation(fields: [facultyId], references: [id])
+  facultyId String
 }
