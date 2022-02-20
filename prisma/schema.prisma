@@ -11,14 +11,22 @@ datasource db {
 }
 
 model Hostel {
-  id      String @id @default(dbgenerated("public.uuid_generate_v4()"))
+  id      String @id @default(dbgenerated("uuid_generate_v4()"))
   name    String @db.VarChar(50) @unique
   floors  Floor[]
 }
 
 model Floor {
-  id        String @id @default(dbgenerated("public.uuid_generate_v4()"))
-  name      String @db.VarChar(50) @unique
+  id        String @id @default(dbgenerated("uuid_generate_v4()"))
+  name      String @db.VarChar(50)
   hostel    Hostel @relation(fields: [hostelId], references: [id])
   hostelId  String
+  rooms     Room[]
+}
+
+model Room {
+  id        String @id @default(dbgenerated("uuid_generate_v4()"))
+  name      String @db.VarChar(50)
+  floor     Floor @relation(fields: [floorId], references: [id])
+  floorId   String
 }
