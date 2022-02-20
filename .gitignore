@@ -1,3 +1,6 @@
+# Docs
+docs
+
 # Logs
 logs
 *.log
@@ -101,4 +104,8 @@ dist
 .dynamodb/
 
 # TernJS port file
+<<<<<<< HEAD
 .tern-port
+=======
+.tern-port
+>>>>>>> 0e404bf (add .gitignore)
