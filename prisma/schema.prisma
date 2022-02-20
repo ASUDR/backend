@@ -30,6 +30,14 @@ model Room {
   name      String @db.VarChar(50)
   floor     Floor @relation(fields: [floorId], references: [id])
   floorId   String
+  places    Place[]
+}
+
+model Place {
+  id        String @id @default(dbgenerated("uuid_generate_v4()"))
+  name      String @db.VarChar(50)
+  room      Room @relation(fields: [roomId], references: [id])
+  roomId    String
 }
 
 model Faculty {
