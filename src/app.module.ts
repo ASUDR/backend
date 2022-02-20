@@ -9,9 +9,20 @@ import { FacultiesModule } from './faculties/faculties.module';
 import { GroupsModule } from './groups/groups.module';
 import { CountriesModule } from './countries/countries.module';
 import { PlacesModule } from './places/places.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PrismaModule, HostelsModule, FloorsModule, RoomsModule, FacultiesModule, GroupsModule, CountriesModule, PlacesModule],
+  imports: [
+    PrismaModule,
+    HostelsModule,
+    FloorsModule,
+    RoomsModule,
+    FacultiesModule,
+    GroupsModule,
+    CountriesModule,
+    PlacesModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
