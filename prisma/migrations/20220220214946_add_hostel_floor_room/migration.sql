@@ -1,3 +1,6 @@
+-- Add extention
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- CreateTable
 CREATE TABLE "Hostel" (
     "id" TEXT NOT NULL DEFAULT uuid_generate_v4(),
