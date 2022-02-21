@@ -1,8 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsString } from 'class-validator';
-import { CreateRoomDto } from './create-room.dto';
+import { CreateLodgerDto } from './create-lodger.dto';
 
-export class UpdateRoomDto extends PartialType(CreateRoomDto) {
+export class UpdateLodgerDto extends PartialType(CreateLodgerDto) {
   @IsString()
   id: string;
 }
