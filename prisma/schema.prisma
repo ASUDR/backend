@@ -46,7 +46,8 @@ model Faculty {
   id      String @id @default(dbgenerated("uuid_generate_v4()"))
   name    String @db.VarChar(50) @unique
   hostels Hostel[]
-  groups Group[]
+  groups  Group[]
+  admins  Admin[]
 }
 
 model Group {
@@ -81,4 +82,22 @@ model Lodger {
   contractDate  DateTime?
   country       Country? @relation(fields: [countryId], references: [id])
   countryId     String?
+}
+
+model Role {
+  id      String @id @default(dbgenerated("uuid_generate_v4()"))
+  name    String @db.VarChar(50) @unique
+  admins  Admin[]
+}
+
+model Admin {
+  id         String @id @default(dbgenerated("uuid_generate_v4()"))
+  login      String @db.VarChar(50) @unique
+  password   String @db.VarChar(50) @default(dbgenerated("md5(random()::text)"))
+  role       Role   @relation(fields: [roleId], references: [id])
+  roleId     String
+  faculties  Faculty[]
+  firstName  String @db.VarChar(50)
+  lastName   String @db.VarChar(50)
+  patronymic String? @db.VarChar(50)
 }
