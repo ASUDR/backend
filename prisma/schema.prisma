@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Hostel {
-  id      String @id @default(dbgenerated("uuid_generate_v4()"))
-  name    String @db.VarChar(50) @unique
-  floors  Floor[]
+  id        String @id @default(dbgenerated("uuid_generate_v4()"))
+  name      String @db.VarChar(50) @unique
+  floors    Floor[]
   faculties Faculty[]
+  lodgers   Lodger[]
 }
 
 model Floor {
@@ -66,16 +67,18 @@ model Lodger {
   id            String   @id @default(dbgenerated("uuid_generate_v4()"))
   login         String   @db.VarChar(50) @unique
   password      String   @db.VarChar(50) @default(dbgenerated("md5(random()::text)"))
-  first_name    String   @db.VarChar(50)
-  last_name     String   @db.VarChar(50)
-  patronomic    String?  @db.VarChar(50)
-  group         Group?   @relation(fields: [groupId], references: [id])
-  groupId       String?
+  firstName     String   @db.VarChar(50)
+  lastName      String   @db.VarChar(50)
+  patronymic    String?  @db.VarChar(50)
+  hostel        Hostel   @relation(fields: [hostelId], references: [id])
+  hostelId      String
   place         Place?   @relation(fields: [placeId], references: [id])
   placeId       String?
+  group         Group?   @relation(fields: [groupId], references: [id])
+  groupId       String?
   phone         String?  @db.VarChar(11)
-  contract_id   Int?
-  contract_date DateTime?
+  contractId    Int?
+  contractDate  DateTime?
   country       Country? @relation(fields: [countryId], references: [id])
   countryId     String?
 }
