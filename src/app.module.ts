@@ -11,6 +11,7 @@ import { CountriesModule } from './countries/countries.module';
 import { PlacesModule } from './places/places.module';
 import { LodgersModule } from './lodgers/lodgers.module';
 import { AdminsModule } from './admins/admins.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AdminsModule } from './admins/admins.module';
     PlacesModule,
     LodgersModule,
     AdminsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
