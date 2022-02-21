@@ -6,7 +6,8 @@ export class AuthService {
   constructor(private adminsService: AdminsService) {}
 
   async validateUser(login: string, pass: string): Promise<any> {
-    const user = await this.adminsService.findOne(login);
+    const user = await this.adminsService.findOne({ login });
+    console.log('AuthService.validateUser, user', user);
     if (user && user.password === pass) {
       const { password, ...result } = user;
       return result;

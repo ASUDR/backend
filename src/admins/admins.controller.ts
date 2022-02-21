@@ -27,7 +27,7 @@ export class AdminsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.adminsService.findOne(id);
+    return this.adminsService.findOne({ id });
   }
 
   @Patch(':id')

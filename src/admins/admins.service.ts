@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Admin } from '@prisma/client';
+import { Admin, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { randomLogin } from 'src/utils';
 import { CreateAdminDto } from './dto/create-admin.dto';
@@ -33,8 +33,8 @@ export class AdminsService {
     return this.prisma.admin.findMany();
   }
 
-  async findOne(id: string): Promise<Admin> {
-    return this.prisma.admin.findUnique({ where: { id } });
+  async findOne(filter: Prisma.AdminWhereUniqueInput): Promise<Admin> {
+    return this.prisma.admin.findUnique({ where: filter });
   }
 
   async update(id: string, data: UpdateAdminDto): Promise<Admin> {
