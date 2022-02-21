@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Hostel {
-  id      String @id @default(dbgenerated("uuid_generate_v4()"))
-  name    String @db.VarChar(50) @unique
-  floors  Floor[]
+  id        String @id @default(dbgenerated("uuid_generate_v4()"))
+  name      String @db.VarChar(50) @unique
+  floors    Floor[]
   faculties Faculty[]
+  lodgers   Lodger[]
 }
 
 model Floor {
@@ -28,7 +29,7 @@ model Floor {
 model Room {
   id        String @id @default(dbgenerated("uuid_generate_v4()"))
   name      String @db.VarChar(50)
-  floor     Floor @relation(fields: [floorId], references: [id])
+  floor     Floor  @relation(fields: [floorId], references: [id])
   floorId   String
   places    Place[]
 }
@@ -36,25 +37,67 @@ model Room {
 model Place {
   id        String @id @default(dbgenerated("uuid_generate_v4()"))
   name      String @db.VarChar(50)
-  room      Room @relation(fields: [roomId], references: [id])
+  room      Room   @relation(fields: [roomId], references: [id])
   roomId    String
+  users     Lodger[]
 }
 
 model Faculty {
   id      String @id @default(dbgenerated("uuid_generate_v4()"))
   name    String @db.VarChar(50) @unique
   hostels Hostel[]
-  groups Group[]
+  groups  Group[]
+  admins  Admin[]
 }
 
 model Group {
-  id      String @id @default(dbgenerated("uuid_generate_v4()"))
-  name    String @db.VarChar(50) @unique
+  id      String  @id @default(dbgenerated("uuid_generate_v4()"))
+  name    String  @db.VarChar(50) @unique
   faculty Faculty @relation(fields: [facultyId], references: [id])
   facultyId String
+  users   Lodger[]
 }
 
 model Country {
   id      String @id @default(dbgenerated("uuid_generate_v4()"))
   name    String @db.VarChar(50) @unique
+  users   Lodger[]
+}
+
+model Lodger {
+  id            String   @id @default(dbgenerated("uuid_generate_v4()"))
+  login         String   @db.VarChar(50) @unique
+  password      String   @db.VarChar(50) @default(dbgenerated("md5(random()::text)"))
+  firstName     String   @db.VarChar(50)
+  lastName      String   @db.VarChar(50)
+  patronymic    String?  @db.VarChar(50)
+  hostel        Hostel   @relation(fields: [hostelId], references: [id])
+  hostelId      String
+  place         Place?   @relation(fields: [placeId], references: [id])
+  placeId       String?
+  group         Group?   @relation(fields: [groupId], references: [id])
+  groupId       String?
+  phone         String?  @db.VarChar(11)
+  contractId    Int?
+  contractDate  DateTime?
+  country       Country? @relation(fields: [countryId], references: [id])
+  countryId     String?
+}
+
+model Role {
+  id      String @id @default(dbgenerated("uuid_generate_v4()"))
+  name    String @db.VarChar(50) @unique
+  admins  Admin[]
+}
+
+model Admin {
+  id         String @id @default(dbgenerated("uuid_generate_v4()"))
+  login      String @db.VarChar(50) @unique
+  password   String @db.VarChar(50) @default(dbgenerated("md5(random()::text)"))
+  role       Role   @relation(fields: [roleId], references: [id])
+  roleId     String
+  faculties  Faculty[]
+  firstName  String @db.VarChar(50)
+  lastName   String @db.VarChar(50)
+  patronymic String? @db.VarChar(50)
 }

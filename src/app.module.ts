@@ -9,6 +9,8 @@ import { FacultiesModule } from './faculties/faculties.module';
 import { GroupsModule } from './groups/groups.module';
 import { CountriesModule } from './countries/countries.module';
 import { PlacesModule } from './places/places.module';
+import { LodgersModule } from './lodgers/lodgers.module';
+import { AdminsModule } from './admins/admins.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -21,6 +23,8 @@ import { AuthModule } from './auth/auth.module';
     GroupsModule,
     CountriesModule,
     PlacesModule,
+    LodgersModule,
+    AdminsModule,
     AuthModule,
   ],
   controllers: [AppController],

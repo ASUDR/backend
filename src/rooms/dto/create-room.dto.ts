@@ -1,12 +1,11 @@
-import { IsDefined, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateRoomDto {
-  @IsDefined()
   @IsString()
+  @IsNotEmpty()
   @MaxLength(50)
   name: string;
 
-  @IsDefined()
   @IsString()
   floorId: string;
 }

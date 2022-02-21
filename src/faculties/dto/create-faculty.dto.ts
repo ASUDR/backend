@@ -1,8 +1,8 @@
-import { IsDefined, IsString, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateFacultyDto {
-  @IsDefined()
   @IsString()
+  @IsNotEmpty()
   @MaxLength(50)
   name: string;
 }
