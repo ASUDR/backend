@@ -6,12 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
 import { PlacesService } from './places.service';
 
 @Controller('places')
+@UseGuards(JwtAuthGuard)
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 

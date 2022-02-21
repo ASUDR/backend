@@ -6,12 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
 import { UpdateFacultyDto } from './dto/update-faculty.dto';
 import { FacultiesService } from './faculties.service';
 
 @Controller('faculties')
+@UseGuards(JwtAuthGuard)
 export class FacultiesController {
   constructor(private readonly facultiesService: FacultiesService) {}
 
