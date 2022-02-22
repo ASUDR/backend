@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateAdminDto {
@@ -18,7 +18,7 @@ export class CreateAdminDto {
   @MaxLength(50)
   lastName: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     maxLength: 50,
   })
   @IsOptional()
