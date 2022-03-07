@@ -4,8 +4,8 @@ export class CreateGroupDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  name: string;
+    name: string;
 
   @IsString()
-  facultyId: string;
+    facultyId: string;
 }

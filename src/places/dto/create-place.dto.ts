@@ -4,8 +4,8 @@ export class CreatePlaceDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  name: string;
+    name: string;
 
   @IsString()
-  roomId: string;
+    roomId: string;
 }

@@ -4,8 +4,8 @@ export class CreateRoomDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  name: string;
+    name: string;
 
   @IsString()
-  floorId: string;
+    floorId: string;
 }

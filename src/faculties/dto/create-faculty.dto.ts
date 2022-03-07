@@ -4,5 +4,5 @@ export class CreateFacultyDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  name: string;
+    name: string;
 }

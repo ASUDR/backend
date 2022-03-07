@@ -8,10 +8,10 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { HostelsService } from './hostels.service';
 import { CreateHostelDto } from './dto/create-hostel.dto';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('hostels')
 @UseGuards(JwtAuthGuard)
@@ -29,17 +29,17 @@ export class HostelsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.hostelsService.findOne(id);
+  async findOne(@Param('id') id: number) {
+    return this.hostelsService.findOne({ id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateHostelDto) {
+  async update(@Param('id') id: number, @Body() dto: UpdateHostelDto) {
     return this.hostelsService.update(id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number) {
     return this.hostelsService.remove(id);
   }
 }

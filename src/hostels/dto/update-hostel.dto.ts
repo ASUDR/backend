@@ -4,5 +4,5 @@ import { CreateHostelDto } from './create-hostel.dto';
 
 export class UpdateHostelDto extends PartialType(CreateHostelDto) {
   @IsString()
-  id: string;
+    id: number;
 }

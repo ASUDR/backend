@@ -4,5 +4,5 @@ import { CreateGroupDto } from './create-group.dto';
 
 export class UpdateGroupDto extends PartialType(CreateGroupDto) {
   @IsString()
-  id: string;
+    id: string;
 }

@@ -11,7 +11,9 @@ export class AdminsService {
 
   async create(data: CreateAdminDto): Promise<Admin> {
     const login = randomLogin();
-    const { firstName, lastName, patronymic, roleId, facultiesIds } = data;
+    const {
+      firstName, lastName, patronymic, roleId, facultiesIds,
+    } = data;
     const role = roleId ? { connect: { id: roleId } } : undefined;
     const faculties = facultiesIds
       ? { connect: facultiesIds.map((id) => ({ id })) }
@@ -38,8 +40,9 @@ export class AdminsService {
   }
 
   async update(id: string, data: UpdateAdminDto): Promise<Admin> {
-    const { login, firstName, lastName, patronymic, roleId, facultiesIds } =
-      data;
+    const {
+      login, firstName, lastName, patronymic, roleId, facultiesIds,
+    } = data;
     const role = roleId ? { connect: { id: roleId } } : undefined;
     const faculties = facultiesIds
       ? { connect: facultiesIds.map((id) => ({ id })) }

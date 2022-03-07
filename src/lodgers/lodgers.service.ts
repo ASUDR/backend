@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Lodger } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { randomLogin } from 'src/utils';
 import { CreateLodgerDto } from './dto/create-lodger.dto';
 import { UpdateLodgerDto } from './dto/update-lodger.dto';
-import { randomLogin } from 'src/utils';
 
 @Injectable()
 export class LodgersService {

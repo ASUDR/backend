@@ -4,5 +4,5 @@ import { CreateFloorDto } from './create-floor.dto';
 
 export class UpdateFloorDto extends PartialType(CreateFloorDto) {
   @IsString()
-  id: string;
+    id: string;
 }

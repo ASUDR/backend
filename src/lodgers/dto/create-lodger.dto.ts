@@ -12,42 +12,42 @@ export class CreateLodgerDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  firstName: string;
+    firstName: string;
 
   @IsString()
   @IsNotEmpty()
   @MaxLength(50)
-  lastName: string;
+    lastName: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(50)
-  patronymic?: string;
+    patronymic?: string;
 
   @IsOptional()
   @IsPhoneNumber()
-  phone?: string;
+    phone?: string;
 
   @IsOptional()
   @IsInt()
-  contractId: number;
+    contractId: number;
 
   @IsOptional()
   @IsDate()
-  contractDate: Date;
+    contractDate: Date;
 
   @IsString()
-  hostelId: string;
-
-  @IsOptional()
-  @IsString()
-  placeId?: string;
+    hostelId: string;
 
   @IsOptional()
   @IsString()
-  groupId?: string;
+    placeId?: string;
 
   @IsOptional()
   @IsString()
-  countryId?: string;
+    groupId?: string;
+
+  @IsOptional()
+  @IsString()
+    countryId?: string;
 }

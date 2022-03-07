@@ -4,5 +4,5 @@ import { CreateLodgerDto } from './create-lodger.dto';
 
 export class UpdateLodgerDto extends PartialType(CreateLodgerDto) {
   @IsString()
-  id: string;
+    id: string;
 }

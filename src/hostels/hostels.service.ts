@@ -1,30 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { Hostel } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { CreateHostelDto } from './dto/create-hostel.dto';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
+import { Hostel } from './entities/hostel.entity';
 
 @Injectable()
 export class HostelsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Hostel)
+    private readonly hostelsRepository: Repository<Hostel>,
+  ) {}
 
   async create(data: CreateHostelDto): Promise<Hostel> {
-    return this.prisma.hostel.create({ data });
+    const hostel = this.hostelsRepository.create(data);
+    await this.hostelsRepository.save(hostel);
+    return this.findOne({ id: hostel.id });
   }
 
   async findMany(): Promise<Array<Hostel>> {
-    return this.prisma.hostel.findMany();
+    return this.hostelsRepository.find();
   }
 
-  async findOne(id: string): Promise<Hostel> {
-    return this.prisma.hostel.findUnique({ where: { id } });
+  async findOne(filter: FindConditions<Hostel>): Promise<Hostel> {
+    return this.hostelsRepository.findOneOrFail(filter);
   }
 
-  async update(id: string, data: UpdateHostelDto): Promise<Hostel> {
-    return this.prisma.hostel.update({ data, where: { id } });
+  async update(id: number, data: UpdateHostelDto): Promise<Hostel> {
+    const hostel = this.hostelsRepository.create(data);
+    await this.hostelsRepository.save(hostel);
+    return this.findOne({ id });
   }
 
-  async remove(id: string): Promise<Hostel> {
-    return this.prisma.hostel.delete({ where: { id } });
+  async remove(id: number): Promise<Hostel> {
+    const hostel = await this.hostelsRepository.findOneOrFail(
+      { id },
+      { loadEagerRelations: false },
+    );
+
+    return this.hostelsRepository.softRemove(hostel);
   }
 }
