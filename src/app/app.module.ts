@@ -7,7 +7,7 @@ import { FloorsModule } from '../floors/floors.module';
 import { RoomsModule } from '../rooms/rooms.module';
 // import { FacultiesModule } from '../faculties/faculties.module';
 // import { GroupsModule } from '../groups/groups.module';
-// import { CountriesModule } from '../countries/countries.module';
+import { CountriesModule } from '../countries/countries.module';
 import { PlacesModule } from '../places/places.module';
 // import { LodgersModule } from '../lodgers/lodgers.module';
 // import { AdminsModule } from '../admins/admins.module';
@@ -21,7 +21,7 @@ import { PlacesModule } from '../places/places.module';
     RoomsModule,
     // FacultiesModule,
     // GroupsModule,
-    // CountriesModule,
+    CountriesModule,
     PlacesModule,
     // LodgersModule,
     // AdminsModule,

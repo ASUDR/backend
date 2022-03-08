@@ -14,7 +14,7 @@ import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
 
 @Controller('countries')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 
@@ -30,16 +30,16 @@ export class CountriesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.countriesService.findOne(id);
+    return this.countriesService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateCountryDto) {
-    return this.countriesService.update(id, dto);
+    return this.countriesService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.countriesService.remove(id);
+    return this.countriesService.remove(+id);
   }
 }
