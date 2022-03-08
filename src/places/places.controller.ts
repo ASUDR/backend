@@ -8,11 +8,13 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
 import { PlacesService } from './places.service';
 
+@ApiTags('places')
 @Controller('places')
 // @UseGuards(JwtAuthGuard)
 export class PlacesController {

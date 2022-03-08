@@ -9,10 +9,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 import { HostelsService } from './dormitory.service';
 import { CreateHostelDto } from './dto/create-hostel.dto';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
 
+@ApiTags('hostels')
 @Controller('hostels')
 // @UseGuards(JwtAuthGuard)
 export class HostelsController {
