@@ -14,7 +14,7 @@ import { UpdateFloorDto } from './dto/update-floor.dto';
 import { FloorsService } from './floors.service';
 
 @Controller('floors')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class FloorsController {
   constructor(private readonly floorsService: FloorsService) {}
 
@@ -30,16 +30,16 @@ export class FloorsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.floorsService.findOne(id);
+    return this.floorsService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateFloorDto) {
-    return this.floorsService.update(id, dto);
+    return this.floorsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.floorsService.remove(id);
+    return this.floorsService.remove(+id);
   }
 }
