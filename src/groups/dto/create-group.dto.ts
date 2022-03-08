@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty, IsNumber, IsString, MaxLength,
+} from 'class-validator';
 
 export class CreateGroupDto {
   @IsString()
@@ -6,6 +8,6 @@ export class CreateGroupDto {
   @MaxLength(50)
     name: string;
 
-  @IsString()
-    facultyId: string;
+  @IsNumber()
+    facultyId: number;
 }

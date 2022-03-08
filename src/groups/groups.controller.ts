@@ -30,16 +30,16 @@ export class GroupsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.groupsService.findOne(id);
+    return this.groupsService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateGroupDto) {
-    return this.groupsService.update(id, dto);
+    return this.groupsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.groupsService.remove(id);
+    return this.groupsService.remove(+id);
   }
 }
