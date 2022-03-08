@@ -36,18 +36,19 @@ export class CreateLodgerDto {
   @IsDate()
     contractDate: Date;
 
-  @IsString()
-    hostelId: string;
+  @IsOptional()
+  @IsInt()
+    hostelId: number;
 
   @IsOptional()
-  @IsString()
-    placeId?: string;
+  @IsInt()
+    placeId?: number;
 
   @IsOptional()
-  @IsString()
-    groupId?: string;
+  @IsInt()
+    groupId?: number;
 
   @IsOptional()
-  @IsString()
-    countryId?: string;
+  @IsInt()
+    countryId?: number;
 }

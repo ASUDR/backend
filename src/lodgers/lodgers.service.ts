@@ -1,32 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { Lodger } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { randomLogin } from 'src/utils';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { CreateLodgerDto } from './dto/create-lodger.dto';
 import { UpdateLodgerDto } from './dto/update-lodger.dto';
+import { Lodger } from './entities/lodger.entity';
 
 @Injectable()
 export class LodgersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Lodger)
+    private readonly lodgersRepository: Repository<Lodger>,
+  ) {}
 
   async create(data: CreateLodgerDto): Promise<Lodger> {
-    const login = randomLogin();
-    return this.prisma.lodger.create({ data: { ...data, login } });
+    const lodger = this.lodgersRepository.create(data);
+    await this.lodgersRepository.save(lodger);
+    return this.findOne({ id: lodger.id });
   }
 
-  async findMany(): Promise<Array<Lodger>> {
-    return this.prisma.lodger.findMany();
+  async findMany(filter?: FindConditions<Lodger>): Promise<Array<Lodger>> {
+    return this.lodgersRepository.find(filter);
   }
 
-  async findOne(id: string): Promise<Lodger> {
-    return this.prisma.lodger.findUnique({ where: { id } });
+  async findOne(filter: FindConditions<Lodger>): Promise<Lodger> {
+    return this.lodgersRepository.findOneOrFail(filter);
   }
 
-  async update(id: string, data: UpdateLodgerDto): Promise<Lodger> {
-    return this.prisma.lodger.update({ data, where: { id } });
+  async update(id: number, data: UpdateLodgerDto): Promise<Lodger> {
+    const lodger = this.lodgersRepository.create({ id, ...data });
+    await this.lodgersRepository.save(lodger);
+    return this.findOne({ id: lodger.id });
   }
 
-  async remove(id: string): Promise<Lodger> {
-    return this.prisma.lodger.delete({ where: { id } });
+  async remove(id: number): Promise<Lodger> {
+    const lodger = await this.lodgersRepository.findOneOrFail(
+      { id },
+      { loadEagerRelations: false },
+    );
+    return this.lodgersRepository.softRemove(lodger);
   }
 }

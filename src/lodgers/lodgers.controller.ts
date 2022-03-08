@@ -30,16 +30,16 @@ export class LodgersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.lodgersService.findOne(id);
+    return this.lodgersService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateLodgerDto) {
-    return this.lodgersService.update(id, dto);
+    return this.lodgersService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.lodgersService.remove(id);
+    return this.lodgersService.remove(+id);
   }
 }
