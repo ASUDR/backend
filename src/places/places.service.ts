@@ -1,30 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { Place } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
+import { Place } from './entities/place.entity';
 
 @Injectable()
 export class PlacesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Place)
+    private readonly placeRepository: Repository<Place>,
+  ) {}
 
   async create(data: CreatePlaceDto): Promise<Place> {
-    return this.prisma.place.create({ data });
+    const place = this.placeRepository.create(data);
+    await this.placeRepository.save(place);
+    return this.findOne({ id: place.id });
   }
 
-  async findMany(): Promise<Array<Place>> {
-    return this.prisma.place.findMany();
+  async findMany(filter?: FindConditions<Place>): Promise<Array<Place>> {
+    return this.placeRepository.find(filter);
   }
 
-  async findOne(id: string): Promise<Place> {
-    return this.prisma.place.findUnique({ where: { id } });
+  async findOne(filter: FindConditions<Place>): Promise<Place> {
+    return this.placeRepository.findOneOrFail(filter);
   }
 
-  async update(id: string, data: UpdatePlaceDto): Promise<Place> {
-    return this.prisma.place.update({ data, where: { id } });
+  async update(id: number, data: UpdatePlaceDto): Promise<Place> {
+    const place = this.placeRepository.create({ id, ...data });
+    await this.placeRepository.save(place);
+    return this.findOne({ id: place.id });
   }
 
-  async remove(id: string): Promise<Place> {
-    return this.prisma.place.delete({ where: { id } });
+  async remove(id: number): Promise<Place> {
+    const place = await this.placeRepository.findOneOrFail(
+      { id },
+      { loadEagerRelations: false },
+    );
+    return this.placeRepository.softRemove(place);
   }
 }

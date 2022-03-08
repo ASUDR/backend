@@ -14,7 +14,7 @@ import { UpdatePlaceDto } from './dto/update-place.dto';
 import { PlacesService } from './places.service';
 
 @Controller('places')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 
@@ -30,16 +30,16 @@ export class PlacesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.placesService.findOne(id);
+    return this.placesService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdatePlaceDto) {
-    return this.placesService.update(id, dto);
+    return this.placesService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.placesService.remove(id);
+    return this.placesService.remove(+id);
   }
 }

@@ -8,7 +8,7 @@ import { RoomsModule } from '../rooms/rooms.module';
 // import { FacultiesModule } from '../faculties/faculties.module';
 // import { GroupsModule } from '../groups/groups.module';
 // import { CountriesModule } from '../countries/countries.module';
-// import { PlacesModule } from '../places/places.module';
+import { PlacesModule } from '../places/places.module';
 // import { LodgersModule } from '../lodgers/lodgers.module';
 // import { AdminsModule } from '../admins/admins.module';
 // import { AuthModule } from '../auth/auth.module';
@@ -22,7 +22,7 @@ import { RoomsModule } from '../rooms/rooms.module';
     // FacultiesModule,
     // GroupsModule,
     // CountriesModule,
-    // PlacesModule,
+    PlacesModule,
     // LodgersModule,
     // AdminsModule,
     // AuthModule,

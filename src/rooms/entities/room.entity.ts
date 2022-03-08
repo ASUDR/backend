@@ -1,7 +1,8 @@
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Floor } from 'src/floors/entities/floor.entity';
+import { Place } from 'src/places/entities/place.entity';
 import {
-  Entity, Column, ManyToOne, JoinColumn,
+  Entity, Column, ManyToOne, JoinColumn, OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -17,4 +18,7 @@ export class Room extends CommonEntity {
 
   @Column({ nullable: false })
     floorId: number;
+
+  @OneToMany(() => Place, (place) => place.room)
+    places: Place[];
 }
