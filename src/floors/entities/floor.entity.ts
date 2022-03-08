@@ -1,6 +1,9 @@
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Dormitory } from 'src/dormitories/entities/dormitory.entity';
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Room } from 'src/rooms/entities/room.entity';
+import {
+  Entity, Column, ManyToOne, OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class Floor extends CommonEntity {
@@ -9,4 +12,7 @@ export class Floor extends CommonEntity {
 
   @ManyToOne(() => Dormitory, (dorm) => dorm.floors)
     hostel: Dormitory;
+
+  @OneToMany(() => Room, (room) => room.floor)
+    rooms: Room[];
 }
