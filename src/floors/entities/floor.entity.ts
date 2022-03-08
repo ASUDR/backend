@@ -13,11 +13,11 @@ export class Floor extends CommonEntity {
   @ManyToOne(() => Dormitory, (dorm) => dorm.floors, {
     cascade: true, eager: true,
   })
-  @JoinColumn({ name: 'hostelId' })
-    hostel: Dormitory;
+  @JoinColumn({ name: 'dormitoryId' })
+    dormitory: Dormitory;
 
   @Column({ nullable: false })
-    hostelId: number;
+    dormitoryId: number;
 
   @OneToMany(() => Room, (room) => room.floor)
     rooms: Room[];
