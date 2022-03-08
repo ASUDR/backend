@@ -23,9 +23,7 @@ export class FloorsService {
   }
 
   async findOne(filter: FindConditions<Floor>): Promise<Floor> {
-    return this.floorsRepository.findOneOrFail(filter, {
-      relations: ['hostel'],
-    });
+    return this.floorsRepository.findOneOrFail(filter);
   }
 
   async update(id: number, data: UpdateFloorDto): Promise<Floor> {

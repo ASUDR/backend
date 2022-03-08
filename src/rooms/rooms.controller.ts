@@ -14,7 +14,7 @@ import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomsService } from './rooms.service';
 
 @Controller('rooms')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
@@ -30,16 +30,16 @@ export class RoomsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.roomsService.findOne(id);
+    return this.roomsService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateRoomDto) {
-    return this.roomsService.update(id, dto);
+    return this.roomsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.roomsService.remove(id);
+    return this.roomsService.remove(+id);
   }
 }

@@ -11,7 +11,7 @@ export class AddRoom1646739133843 implements MigrationInterface {
             "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
             "deletedAt" TIMESTAMP,
             "name" character varying(64) NOT NULL,
-            "floorId" integer,
+            "floorId" integer NOT NULL,
             CONSTRAINT "UQ_535c742a3606d2e3122f441b26c" UNIQUE ("name"),
             CONSTRAINT "PK_c6d46db005d623e691b2fbcba23" PRIMARY KEY ("id")
         )

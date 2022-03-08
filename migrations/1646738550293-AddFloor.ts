@@ -11,7 +11,7 @@ export class AddFloor1646738550293 implements MigrationInterface {
             "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
             "deletedAt" TIMESTAMP,
             "name" character varying(64) NOT NULL,
-            "hostelId" integer,
+            "hostelId" integer NOT NULL,
             CONSTRAINT "UQ_a6b4f1cfb48849d05e0158079f8" UNIQUE ("name"),
             CONSTRAINT "PK_16a0823530c5b0dd226b8a96ee1" PRIMARY KEY ("id")
         )

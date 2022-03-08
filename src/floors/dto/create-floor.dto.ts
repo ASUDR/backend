@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty, IsNumber, IsString, MaxLength,
+} from 'class-validator';
 
 export class CreateFloorDto {
   @IsString()
@@ -6,6 +8,6 @@ export class CreateFloorDto {
   @MaxLength(50)
     name: string;
 
-  @IsString()
-    hostelId: string;
+  @IsNumber()
+    hostelId: number;
 }
