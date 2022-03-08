@@ -27,7 +27,8 @@ export class HostelsService {
   }
 
   async update(id: number, data: UpdateHostelDto): Promise<Hostel> {
-    const hostel = this.hostelsRepository.create(data);
+    const hostel = this.hostelsRepository.create({ ...data, id });
+    console.log('hostel', hostel);
     await this.hostelsRepository.save(hostel);
     return this.findOne({ id });
   }

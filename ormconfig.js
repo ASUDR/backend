@@ -1,5 +1,3 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-
 module.exports = {
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -12,5 +10,6 @@ module.exports = {
   cli: {
     migrationsDir: process.env.TYPEORM_CLI_MIGRATIONS,
   },
+  logging: process.env.TYPEORM_LOGGING === 'true',
   synchronize: false,
 };

@@ -14,7 +14,7 @@ import { CreateHostelDto } from './dto/create-hostel.dto';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
 
 @Controller('hostels')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class HostelsController {
   constructor(private readonly hostelsService: HostelsService) {}
 
@@ -29,17 +29,17 @@ export class HostelsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.hostelsService.findOne({ id });
+  async findOne(@Param('id') id: string) {
+    return this.hostelsService.findOne({ id: +id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() dto: UpdateHostelDto) {
-    return this.hostelsService.update(id, dto);
+  async update(@Param('id') id: string, @Body() dto: UpdateHostelDto) {
+    return this.hostelsService.update(+id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number) {
-    return this.hostelsService.remove(id);
+  async remove(@Param('id') id: string) {
+    return this.hostelsService.remove(+id);
   }
 }
