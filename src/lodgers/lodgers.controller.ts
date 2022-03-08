@@ -24,34 +24,39 @@ export class LodgersController {
 
   @Post()
   @ApiResponse({ status: HttpStatus.CREATED, type: Lodger })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   async create(@Body() dto: CreateLodgerDto): Promise<Lodger> {
     return this.lodgersService.create(dto);
   }
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Lodger] })
-  async findAll() {
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  async findAll(): Promise<Array<Lodger>> {
     return this.lodgersService.findMany();
   }
 
   @Get(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string): Promise<Lodger> {
     return this.lodgersService.findOne({ id: +id });
   }
 
   @Patch(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateLodgerDto) {
+  async update(@Param('id') id: string, @Body() dto: UpdateLodgerDto): Promise<Lodger> {
     return this.lodgersService.update(+id, dto);
   }
 
   @Delete(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string): Promise<Lodger> {
     return this.lodgersService.remove(+id);
   }
 }
