@@ -19,27 +19,27 @@ export class CreateAdminDto {
     password: string;
 
   @ApiProperty({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
+  @MaxLength(64)
     firstName: string;
 
   @ApiProperty({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
+  @MaxLength(64)
     lastName: string;
 
   @ApiPropertyOptional({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsOptional()
   @IsString()
-  @MaxLength(50)
+  @MaxLength(64)
     patronymic?: string;
 
   @ApiProperty()

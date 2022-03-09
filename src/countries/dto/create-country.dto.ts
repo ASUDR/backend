@@ -3,10 +3,10 @@ import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateCountryDto {
   @ApiProperty({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
+  @MaxLength(64)
     name: string;
 }
