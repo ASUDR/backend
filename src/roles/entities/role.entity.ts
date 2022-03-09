@@ -9,7 +9,7 @@ export class Role extends CommonEntity {
   @Column('varchar', { length: 64, unique: true })
     name: string;
 
-  @ApiProperty({ type: () => Admin })
+  @ApiProperty({ type: () => [Admin] })
   @OneToMany(() => Admin, (admin) => admin.role)
     admins: Array<Admin>;
 }

@@ -13,13 +13,13 @@ export class Faculty extends CommonEntity {
   @Column('varchar', { length: 64, unique: true })
     name: string;
 
-  @ApiProperty({ type: () => [Dormitory] })
-  @ManyToMany(() => Dormitory, (dorm) => dorm.faculties)
-    dormitories: Array<Dormitory>;
-
   @ApiProperty({ type: () => [Group] })
   @OneToMany(() => Group, (group) => group.faculty)
     groups: Array<Group>;
+
+  @ApiProperty({ type: () => [Dormitory] })
+  @ManyToMany(() => Dormitory, (dorm) => dorm.faculties)
+    dormitories: Array<Dormitory>;
 
   @ApiProperty({ type: () => [Admin] })
   @ManyToMany(() => Admin, (admin) => admin.faculties)
