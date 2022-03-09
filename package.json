@@ -30,9 +30,8 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
-    "@nestjs/typeorm": "^8.0.3",
-    "@prisma/client": "^3.10.0",
     "@nestjs/swagger": "^5.2.0",
+    "@nestjs/typeorm": "^8.0.3",
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
     "@types/randomstring": "^1.1.8",
@@ -42,14 +41,12 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
-    "prisma": "^3.10.0",
-    "prisma-docs-generator": "^0.5.0",
     "randomstring": "^1.2.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "typeorm": "^0.2.45",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "typeorm": "^0.2.45"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
