@@ -16,7 +16,7 @@ export class AddLodger1646773312497 implements MigrationInterface {
             "firstName" character varying(64) NOT NULL,
             "patronymic" character varying(64),
             "phone" character varying(11),
-            "contractId" integer,
+            "contractId" integer NOT NULL,
             "contractDate" TIMESTAMP,
             "dormitoryId" integer,
             "placeId" integer,
