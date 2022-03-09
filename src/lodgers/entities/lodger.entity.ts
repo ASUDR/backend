@@ -10,27 +10,27 @@ import {
 
 @Entity()
 export class Lodger extends CommonEntity {
-  @ApiProperty({ maxLength: 64 })
+  @ApiProperty()
   @Column('varchar', { length: 64, unique: true })
     login: string;
 
-  @ApiProperty({ maxLength: 128 })
+  @ApiProperty()
   @Column('varchar', { length: 128 })
     password: string;
 
-  @ApiProperty({ maxLength: 64 })
+  @ApiProperty()
   @Column('varchar', { length: 64 })
     lastName: string;
 
-  @ApiProperty({ maxLength: 64 })
+  @ApiProperty()
   @Column('varchar', { length: 64 })
     firstName: string;
 
-  @ApiPropertyOptional({ maxLength: 64 })
+  @ApiPropertyOptional()
   @Column('varchar', { length: 64, nullable: true })
     patronymic?: string;
 
-  @ApiPropertyOptional({ maxLength: 11 })
+  @ApiPropertyOptional()
   @Column('varchar', { length: 11, nullable: true })
     phone?: string;
 
