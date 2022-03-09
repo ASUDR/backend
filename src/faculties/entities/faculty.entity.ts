@@ -1,3 +1,4 @@
+import { Admin } from 'src/admins/entities/admin.entity';
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Dormitory } from 'src/dormitories/entities/dormitory.entity';
 import { Group } from 'src/groups/entities/group.entity';
@@ -15,4 +16,7 @@ export class Faculty extends CommonEntity {
 
   @OneToMany(() => Group, (group) => group.faculty)
     groups: Array<Group>;
+
+  @ManyToMany(() => Admin, (admin) => admin.faculties)
+    admins: Array<Admin>;
 }

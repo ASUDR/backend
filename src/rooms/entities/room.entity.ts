@@ -20,5 +20,5 @@ export class Room extends CommonEntity {
     floorId: number;
 
   @OneToMany(() => Place, (place) => place.room)
-    places: Place[];
+    places: Array<Place>;
 }

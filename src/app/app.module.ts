@@ -10,7 +10,7 @@ import { GroupsModule } from '../groups/groups.module';
 import { CountriesModule } from '../countries/countries.module';
 import { PlacesModule } from '../places/places.module';
 import { LodgersModule } from '../lodgers/lodgers.module';
-// import { AdminsModule } from '../admins/admins.module';
+import { AdminsModule } from '../admins/admins.module';
 // import { AuthModule } from '../auth/auth.module';
 
 @Module({
@@ -24,7 +24,7 @@ import { LodgersModule } from '../lodgers/lodgers.module';
     CountriesModule,
     PlacesModule,
     LodgersModule,
-    // AdminsModule,
+    AdminsModule,
     // AuthModule,
   ],
   controllers: [AppController],

@@ -5,11 +5,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFloorDto {
   @ApiProperty({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsString()
   @IsNotEmpty()
-  @MaxLength(50)
+  @MaxLength(64)
     name: string;
 
   @ApiProperty()

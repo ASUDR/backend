@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateHostelDto {
   @ApiProperty({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsString()
   @IsNotEmpty()

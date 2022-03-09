@@ -32,16 +32,16 @@ export class AdminsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.adminsService.findOne({ id });
+    return this.adminsService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateAdminDto) {
-    return this.adminsService.update(id, dto);
+    return this.adminsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.adminsService.remove(id);
+    return this.adminsService.remove(+id);
   }
 }
