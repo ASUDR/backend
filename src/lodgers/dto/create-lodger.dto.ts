@@ -52,7 +52,7 @@ export class CreateLodgerDto {
   @ApiProperty()
   @IsOptional()
   @IsInt()
-    hostelId: number;
+    dormitoryId: number;
 
   @ApiPropertyOptional()
   @IsOptional()

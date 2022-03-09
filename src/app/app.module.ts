@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as config from 'ormconfig';
 import { AppController } from './app.controller';
-import { HostelsModule } from '../dormitories/dormitory.module';
+import { DormitoriesModule } from '../dormitories/dormitory.module';
 import { FloorsModule } from '../floors/floors.module';
 import { RoomsModule } from '../rooms/rooms.module';
 import { FacultiesModule } from '../faculties/faculties.module';
@@ -16,7 +16,7 @@ import { AdminsModule } from '../admins/admins.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(config as TypeOrmModuleOptions),
-    HostelsModule,
+    DormitoriesModule,
     FloorsModule,
     RoomsModule,
     FacultiesModule,

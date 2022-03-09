@@ -10,38 +10,38 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
-import { HostelsService } from './dormitory.service';
-import { CreateHostelDto } from './dto/create-hostel.dto';
-import { UpdateHostelDto } from './dto/update-hostel.dto';
+import { DormitoriesService } from './dormitory.service';
+import { CreateDormitoryDto } from './dto/create-dormitory.dto';
+import { UpdateDormitoryDto } from './dto/update-dormitory.dto';
 
-@ApiTags('hostels')
-@Controller('hostels')
+@ApiTags('dormitories')
+@Controller('dormitories')
 // @UseGuards(JwtAuthGuard)
-export class HostelsController {
-  constructor(private readonly hostelsService: HostelsService) {}
+export class DormitoriesController {
+  constructor(private readonly dormitoriesService: DormitoriesService) {}
 
   @Post()
-  async create(@Body() dto: CreateHostelDto) {
-    return this.hostelsService.create(dto);
+  async create(@Body() dto: CreateDormitoryDto) {
+    return this.dormitoriesService.create(dto);
   }
 
   @Get()
   async findAll() {
-    return this.hostelsService.findMany();
+    return this.dormitoriesService.findMany();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.hostelsService.findOne({ id: +id });
+    return this.dormitoriesService.findOne({ id: +id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateHostelDto) {
-    return this.hostelsService.update(+id, dto);
+  async update(@Param('id') id: string, @Body() dto: UpdateDormitoryDto) {
+    return this.dormitoriesService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.hostelsService.remove(+id);
+    return this.dormitoriesService.remove(+id);
   }
 }
