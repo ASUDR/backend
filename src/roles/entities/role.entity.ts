@@ -1,4 +1,4 @@
-import { Admin } from 'src/admins/dto/entities/admin.entity';
+import { Admin } from 'src/admins/entities/admin.entity';
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Entity, Column, OneToMany } from 'typeorm';
 

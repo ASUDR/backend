@@ -5,6 +5,20 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateAdminDto {
   @ApiProperty({
+    maxLength: 64,
+  })
+  @IsString()
+  @MaxLength(64)
+    login: string;
+
+  @ApiProperty({
+    maxLength: 128,
+  })
+  @IsString()
+  @MaxLength(128)
+    password: string;
+
+  @ApiProperty({
     maxLength: 50,
   })
   @IsString()
@@ -30,9 +44,9 @@ export class CreateAdminDto {
 
   @ApiProperty()
   @IsString()
-    roleId: string;
+    roleId: number;
 
   @ApiProperty()
   @IsString({ each: true })
-    facultiesIds: Array<string>;
+    facultiesIds: Array<number>;
 }
