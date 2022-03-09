@@ -12,7 +12,7 @@ export class Dormitory extends CommonEntity {
     name: string;
 
   @OneToMany(() => Floor, (floor) => floor.dormitory)
-    floors: Floor[];
+    floors: Array<Floor>;
 
   @ManyToMany(() => Faculty, (faculty) => faculty.dormitories)
     faculties: Array<Faculty>;
