@@ -24,5 +24,9 @@ module.exports = {
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "off",
     "class-methods-use-this": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "ignoreRestSiblings": true,
+      "argsIgnorePattern": "^_$"
+    }]
   },
 };

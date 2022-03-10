@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as config from 'ormconfig';
-import { AppController } from './app.controller';
 import { DormitoriesModule } from '../dormitories/dormitory.module';
 import { FloorsModule } from '../floors/floors.module';
 import { RoomsModule } from '../rooms/rooms.module';
@@ -27,6 +26,5 @@ import { AuthModule } from '../auth/auth.module';
     AdminsModule,
     AuthModule,
   ],
-  controllers: [AppController],
 })
 export class AppModule {}

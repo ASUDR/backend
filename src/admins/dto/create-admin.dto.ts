@@ -1,5 +1,5 @@
 import {
-  IsNotEmpty, IsOptional, IsString, MaxLength,
+  IsNotEmpty, IsOptional, IsString, MaxLength, MinLength,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -15,6 +15,7 @@ export class CreateAdminDto {
     maxLength: 128,
   })
   @IsString()
+  @MinLength(8)
   @MaxLength(128)
     password: string;
 
