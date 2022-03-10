@@ -15,16 +15,16 @@ import { AuthModule } from '../auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(config as TypeOrmModuleOptions),
-    DormitoriesModule,
-    FloorsModule,
-    RoomsModule,
-    FacultiesModule,
-    GroupsModule,
-    CountriesModule,
-    PlacesModule,
-    LodgersModule,
-    AdminsModule,
     AuthModule,
+    AdminsModule,
+    CountriesModule,
+    DormitoriesModule,
+    FacultiesModule,
+    FloorsModule,
+    GroupsModule,
+    LodgersModule,
+    PlacesModule,
+    RoomsModule,
   ],
 })
 export class AppModule {}
