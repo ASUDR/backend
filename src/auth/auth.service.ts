@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Admin } from '@prisma/client';
 import { AdminsService } from 'src/admins/admins.service';
+import { Admin } from 'src/admins/entities/admin.entity';
 
 @Injectable()
 export class AuthService {

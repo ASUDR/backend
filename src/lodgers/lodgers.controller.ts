@@ -8,13 +8,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateLodgerDto } from './dto/create-lodger.dto';
 import { UpdateLodgerDto } from './dto/update-lodger.dto';
 import { LodgersService } from './lodgers.service';
 
 @ApiTags('lodgers')
+@ApiBearerAuth()
 @Controller('lodgers')
 @UseGuards(JwtAuthGuard)
 export class LodgersController {

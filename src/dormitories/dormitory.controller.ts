@@ -9,14 +9,15 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { DormitoriesService } from './dormitory.service';
 import { CreateDormitoryDto } from './dto/create-dormitory.dto';
 import { UpdateDormitoryDto } from './dto/update-dormitory.dto';
 
 @ApiTags('dormitories')
+@ApiBearerAuth()
 @Controller('dormitories')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class DormitoriesController {
   constructor(private readonly dormitoriesService: DormitoriesService) {}
 
