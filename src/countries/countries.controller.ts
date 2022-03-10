@@ -9,7 +9,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CountriesService } from './countries.service';
 import { CreateCountryDto } from './dto/create-country.dto';
@@ -17,8 +17,9 @@ import { UpdateCountryDto } from './dto/update-country.dto';
 import { Country } from './entities/country.entity';
 
 @ApiTags('countries')
+@ApiBearerAuth()
 @Controller('countries')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 

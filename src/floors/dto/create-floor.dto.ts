@@ -14,5 +14,5 @@ export class CreateFloorDto {
 
   @ApiProperty()
   @IsNumber()
-    hostelId: number;
+    dormitoryId: number;
 }

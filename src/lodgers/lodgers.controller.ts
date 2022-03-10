@@ -9,7 +9,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateLodgerDto } from './dto/create-lodger.dto';
 import { UpdateLodgerDto } from './dto/update-lodger.dto';
@@ -17,8 +17,9 @@ import { Lodger } from './entities/lodger.entity';
 import { LodgersService } from './lodgers.service';
 
 @ApiTags('lodgers')
+@ApiBearerAuth()
 @Controller('lodgers')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class LodgersController {
   constructor(private readonly lodgersService: LodgersService) {}
 

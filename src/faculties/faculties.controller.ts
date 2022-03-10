@@ -9,7 +9,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
 import { UpdateFacultyDto } from './dto/update-faculty.dto';
@@ -17,8 +17,9 @@ import { Faculty } from './entities/faculty.entity';
 import { FacultiesService } from './faculties.service';
 
 @ApiTags('faculties')
+@ApiBearerAuth()
 @Controller('faculties')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class FacultiesController {
   constructor(private readonly facultiesService: FacultiesService) {}
 
