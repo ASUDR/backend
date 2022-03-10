@@ -8,13 +8,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateGroupDto } from './dto/create-group.dto';
 import { UpdateGroupDto } from './dto/update-group.dto';
 import { GroupsService } from './groups.service';
 
 @ApiTags('groups')
+@ApiBearerAuth()
 @Controller('groups')
 @UseGuards(JwtAuthGuard)
 export class GroupsController {
@@ -32,16 +33,16 @@ export class GroupsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.groupsService.findOne(id);
+    return this.groupsService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateGroupDto) {
-    return this.groupsService.update(id, dto);
+    return this.groupsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.groupsService.remove(id);
+    return this.groupsService.remove(+id);
   }
 }

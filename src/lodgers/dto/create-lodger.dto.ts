@@ -1,70 +1,46 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IsDate,
   IsInt,
-  IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
   IsString,
   MaxLength,
+  MinLength,
 } from 'class-validator';
 
 export class CreateLodgerDto {
   @ApiProperty({
-    maxLength: 50,
+    maxLength: 64,
   })
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(50)
-  firstName: string;
+  @MaxLength(64)
+    login: string;
 
   @ApiProperty({
-    maxLength: 50,
+    minLength: 8,
+    maxLength: 128,
   })
   @IsString()
-  @IsNotEmpty()
-  @MaxLength(50)
-  lastName: string;
+  @MinLength(8)
+  @MaxLength(128)
+    password: string;
 
-  @ApiPropertyOptional({
-    maxLength: 50,
-  })
-  @IsOptional()
-  @IsString()
-  @MaxLength(50)
-  patronymic?: string;
+  @ApiProperty()
+  @IsInt()
+    contractId: number;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsPhoneNumber()
-  phone?: string;
+    phone?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsInt()
-  contractId?: number;
+    groupId?: number;
 
   @ApiPropertyOptional()
   @IsOptional()
-  @IsDate()
-  contractDate?: Date;
-
-  @ApiProperty()
-  @IsString()
-  hostelId: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  placeId?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  groupId?: string;
-
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  countryId?: string;
+  @IsInt()
+    countryId?: number;
 }

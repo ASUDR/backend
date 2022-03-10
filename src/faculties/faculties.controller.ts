@@ -8,13 +8,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
 import { UpdateFacultyDto } from './dto/update-faculty.dto';
 import { FacultiesService } from './faculties.service';
 
 @ApiTags('faculties')
+@ApiBearerAuth()
 @Controller('faculties')
 @UseGuards(JwtAuthGuard)
 export class FacultiesController {
@@ -32,16 +33,16 @@ export class FacultiesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.facultiesService.findOne(id);
+    return this.facultiesService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateFacultyDto) {
-    return this.facultiesService.update(id, dto);
+    return this.facultiesService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.facultiesService.remove(id);
+    return this.facultiesService.remove(+id);
   }
 }

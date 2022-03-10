@@ -1,30 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { Country } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
+import { Country } from './entities/country.entity';
 
 @Injectable()
 export class CountriesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Country)
+    private readonly countriesRepository: Repository<Country>,
+  ) { }
 
   async create(data: CreateCountryDto): Promise<Country> {
-    return this.prisma.country.create({ data });
+    const country = this.countriesRepository.create(data);
+    await this.countriesRepository.save(country);
+    return this.findOne({ id: country.id });
   }
 
-  async findMany(): Promise<Array<Country>> {
-    return this.prisma.country.findMany();
+  async findMany(filter?: FindConditions<Country>): Promise<Array<Country>> {
+    return this.countriesRepository.find(filter);
   }
 
-  async findOne(id: string): Promise<Country> {
-    return this.prisma.country.findUnique({ where: { id } });
+  async findOne(filter: FindConditions<Country>): Promise<Country> {
+    return this.countriesRepository.findOneOrFail(filter);
   }
 
-  async update(id: string, data: UpdateCountryDto): Promise<Country> {
-    return this.prisma.country.update({ data, where: { id } });
+  async update(id: number, data: UpdateCountryDto): Promise<Country> {
+    const country = this.countriesRepository.create({ id, ...data });
+    await this.countriesRepository.save(country);
+    return this.findOne({ id: country.id });
   }
 
-  async remove(id: string): Promise<Country> {
-    return this.prisma.country.delete({ where: { id } });
+  async remove(id: number): Promise<Country> {
+    const country = await this.countriesRepository.findOneOrFail(
+      { id },
+      { loadEagerRelations: false },
+    );
+    return this.countriesRepository.softRemove(country);
   }
 }

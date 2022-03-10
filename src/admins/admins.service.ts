@@ -1,64 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { Admin, Prisma } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { randomLogin } from 'src/utils';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
+import { Admin } from './entities/admin.entity';
 
 @Injectable()
 export class AdminsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Admin)
+    private readonly adminsRepository: Repository<Admin>,
+  ) {}
 
   async create(data: CreateAdminDto): Promise<Admin> {
-    const login = randomLogin();
-    const { firstName, lastName, patronymic, roleId, facultiesIds } = data;
-    const role = roleId ? { connect: { id: roleId } } : undefined;
-    const faculties = facultiesIds
-      ? { connect: facultiesIds.map((id) => ({ id })) }
-      : undefined;
-
-    return this.prisma.admin.create({
-      data: {
-        firstName,
-        lastName,
-        patronymic,
-        login,
-        role,
-        faculties,
-      },
-    });
+    const admin = this.adminsRepository.create(data);
+    await this.adminsRepository.save(admin);
+    return this.findOne({ id: admin.id });
   }
 
-  async findMany(): Promise<Array<Admin>> {
-    return this.prisma.admin.findMany();
+  async findMany(filter?: FindConditions<Admin>): Promise<Array<Admin>> {
+    return this.adminsRepository.find(filter);
   }
 
-  async findOne(filter: Prisma.AdminWhereUniqueInput): Promise<Admin> {
-    return this.prisma.admin.findUnique({ where: filter });
+  async findOne(filter: FindConditions<Admin>): Promise<Admin> {
+    return this.adminsRepository.findOneOrFail(filter);
   }
 
-  async update(id: string, data: UpdateAdminDto): Promise<Admin> {
-    const { login, firstName, lastName, patronymic, roleId, facultiesIds } =
-      data;
-    const role = roleId ? { connect: { id: roleId } } : undefined;
-    const faculties = facultiesIds
-      ? { connect: facultiesIds.map((id) => ({ id })) }
-      : undefined;
-
-    return this.prisma.admin.update({
-      where: { id },
-      data: {
-        firstName,
-        lastName,
-        patronymic,
-        login,
-        role,
-        faculties,
-      },
-    });
+  async update(id: number, data: UpdateAdminDto): Promise<Admin> {
+    const admin = this.adminsRepository.create({ id, ...data });
+    await this.adminsRepository.save(admin);
+    return this.findOne({ id: admin.id });
   }
 
-  async remove(id: string): Promise<Admin> {
-    return this.prisma.admin.delete({ where: { id } });
+  async remove(id: number): Promise<Admin> {
+    const admin = await this.adminsRepository.findOneOrFail(
+      { id },
+      { loadEagerRelations: false },
+    );
+    return this.adminsRepository.softRemove(admin);
   }
 }

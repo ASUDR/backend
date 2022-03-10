@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlacesService } from './places.service';
 import { PlacesController } from './places.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { Place } from './entities/place.entity';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [TypeOrmModule.forFeature([Place])],
   controllers: [PlacesController],
   providers: [PlacesService],
 })

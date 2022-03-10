@@ -1,9 +1,4 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
 import { CreateAdminDto } from './create-admin.dto';
 
-export class UpdateAdminDto extends PartialType(CreateAdminDto) {
-  @ApiProperty()
-  @IsString()
-  login: string;
-}
+export class UpdateAdminDto extends PartialType(CreateAdminDto) {}

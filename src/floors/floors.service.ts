@@ -1,30 +1,42 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Floor } from '@prisma/client';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindConditions, Repository } from 'typeorm';
 import { CreateFloorDto } from './dto/create-floor.dto';
 import { UpdateFloorDto } from './dto/update-floor.dto';
+import { Floor } from './entities/floor.entity';
 
 @Injectable()
 export class FloorsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @InjectRepository(Floor)
+    private readonly floorsRepository: Repository<Floor>,
+  ) {}
 
   async create(data: CreateFloorDto): Promise<Floor> {
-    return this.prisma.floor.create({ data });
+    const floor = this.floorsRepository.create(data);
+    await this.floorsRepository.save(floor);
+    return this.findOne({ id: floor.id });
   }
 
-  async findMany(): Promise<Array<Floor>> {
-    return this.prisma.floor.findMany();
+  async findMany(filter?: FindConditions<Floor>): Promise<Array<Floor>> {
+    return this.floorsRepository.find(filter);
   }
 
-  async findOne(id: string): Promise<Floor> {
-    return this.prisma.floor.findUnique({ where: { id } });
+  async findOne(filter: FindConditions<Floor>): Promise<Floor> {
+    return this.floorsRepository.findOneOrFail(filter);
   }
 
-  async update(id: string, data: UpdateFloorDto): Promise<Floor> {
-    return this.prisma.floor.update({ data, where: { id } });
+  async update(id: number, data: UpdateFloorDto): Promise<Floor> {
+    const floor = this.floorsRepository.create({ id, ...data });
+    await this.floorsRepository.save(floor);
+    return this.findOne({ id });
   }
 
-  async remove(id: string): Promise<Floor> {
-    return this.prisma.floor.delete({ where: { id } });
+  async remove(id: number): Promise<Floor> {
+    const floor = await this.floorsRepository.findOneOrFail(
+      { id },
+      { loadEagerRelations: false },
+    );
+    return this.floorsRepository.softRemove(floor);
   }
 }

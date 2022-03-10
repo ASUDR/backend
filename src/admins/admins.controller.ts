@@ -8,13 +8,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AdminsService } from './admins.service';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 
 @ApiTags('admins')
+@ApiBearerAuth()
 @Controller('admins')
 @UseGuards(JwtAuthGuard)
 export class AdminsController {
@@ -32,16 +33,16 @@ export class AdminsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.adminsService.findOne({ id });
+    return this.adminsService.findOne({ id: +id });
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: UpdateAdminDto) {
-    return this.adminsService.update(id, dto);
+    return this.adminsService.update(+id, dto);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    return this.adminsService.remove(id);
+    return this.adminsService.remove(+id);
   }
 }

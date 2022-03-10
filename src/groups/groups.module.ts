@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { GroupsService } from './groups.service';
 import { GroupsController } from './groups.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { Group } from './entities/group.entity';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [TypeOrmModule.forFeature([Group])],
   controllers: [GroupsController],
   providers: [GroupsService],
 })
