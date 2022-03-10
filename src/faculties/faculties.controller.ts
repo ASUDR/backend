@@ -3,15 +3,17 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateFacultyDto } from './dto/create-faculty.dto';
 import { UpdateFacultyDto } from './dto/update-faculty.dto';
+import { Faculty } from './entities/faculty.entity';
 import { FacultiesService } from './faculties.service';
 
 @ApiTags('faculties')
@@ -22,27 +24,40 @@ export class FacultiesController {
   constructor(private readonly facultiesService: FacultiesService) {}
 
   @Post()
-  async create(@Body() dto: CreateFacultyDto) {
+  @ApiResponse({ status: HttpStatus.CREATED, type: Faculty })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  async create(@Body() dto: CreateFacultyDto): Promise<Faculty> {
     return this.facultiesService.create(dto);
   }
 
   @Get()
-  async findAll() {
+  @ApiResponse({ status: HttpStatus.OK, type: [Faculty] })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  async findAll(): Promise<Array<Faculty>> {
     return this.facultiesService.findMany();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Faculty })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async findOne(@Param('id') id: string): Promise<Faculty> {
     return this.facultiesService.findOne({ id: +id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateFacultyDto) {
+  @ApiResponse({ status: HttpStatus.OK, type: Faculty })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async update(@Param('id') id: string, @Body() dto: UpdateFacultyDto): Promise<Faculty> {
     return this.facultiesService.update(+id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Faculty })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async remove(@Param('id') id: string): Promise<Faculty> {
     return this.facultiesService.remove(+id);
   }
 }

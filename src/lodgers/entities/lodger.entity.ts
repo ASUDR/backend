@@ -1,3 +1,4 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Country } from 'src/countries/entities/country.entity';
 import { Dormitory } from 'src/dormitories/entities/dormitory.entity';
@@ -9,27 +10,35 @@ import {
 
 @Entity()
 export class Lodger extends CommonEntity {
+  @ApiProperty()
   @Column('varchar', { length: 64, unique: true })
     login: string;
 
+  @ApiProperty()
   @Column('varchar', { length: 128 })
     password: string;
 
+  @ApiProperty()
   @Column('varchar', { length: 64 })
     lastName: string;
 
+  @ApiProperty()
   @Column('varchar', { length: 64 })
     firstName: string;
 
+  @ApiPropertyOptional()
   @Column('varchar', { length: 64, nullable: true })
     patronymic?: string;
 
+  @ApiPropertyOptional()
   @Column('varchar', { length: 11, nullable: true })
     phone?: string;
 
+  @ApiProperty()
   @Column()
     contractId: number;
 
+  @ApiPropertyOptional()
   @Column({ nullable: true })
     contractDate?: Date;
 
@@ -39,6 +48,7 @@ export class Lodger extends CommonEntity {
   @JoinColumn({ name: 'dormitoryId' })
     dormitory: Dormitory;
 
+  @ApiPropertyOptional()
   @Column({ nullable: true })
     dormitoryId?: number;
 
@@ -48,6 +58,7 @@ export class Lodger extends CommonEntity {
   @JoinColumn({ name: 'placeId' })
     place: Place;
 
+  @ApiPropertyOptional()
   @Column({ nullable: true })
     placeId?: number;
 
@@ -57,6 +68,7 @@ export class Lodger extends CommonEntity {
   @JoinColumn({ name: 'groupId' })
     group: Place;
 
+  @ApiPropertyOptional()
   @Column({ nullable: true })
     groupId?: number;
 
@@ -66,6 +78,7 @@ export class Lodger extends CommonEntity {
   @JoinColumn({ name: 'countryId' })
     country: Place;
 
+  @ApiPropertyOptional()
   @Column({ nullable: true })
     countryId?: number;
 }

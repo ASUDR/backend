@@ -3,16 +3,18 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CountriesService } from './countries.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
+import { Country } from './entities/country.entity';
 
 @ApiTags('countries')
 @ApiBearerAuth()
@@ -22,27 +24,38 @@ export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 
   @Post()
-  async create(@Body() dto: CreateCountryDto) {
+  @ApiResponse({ status: HttpStatus.CREATED, type: Country })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  async create(@Body() dto: CreateCountryDto): Promise<Country> {
     return this.countriesService.create(dto);
   }
 
   @Get()
-  async findAll() {
+  @ApiResponse({ status: HttpStatus.OK, type: [Country] })
+  async findAll(): Promise<Array<Country>> {
     return this.countriesService.findMany();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Country })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  async findOne(@Param('id') id: string): Promise<Country> {
     return this.countriesService.findOne({ id: +id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateCountryDto) {
+  @ApiResponse({ status: HttpStatus.OK, type: Country })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async update(@Param('id') id: string, @Body() dto: UpdateCountryDto): Promise<Country> {
     return this.countriesService.update(+id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Country })
+  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async remove(@Param('id') id: string): Promise<Country> {
     return this.countriesService.remove(+id);
   }
 }
