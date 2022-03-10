@@ -1,8 +1,10 @@
 import {
-  Controller, Post, UseGuards, Request,
+  Controller, Post, UseGuards, Request, HttpStatus,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { LoginInputDto } from './dto/login.input.dto';
+import { LoginOutputDto } from './dto/login.output.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @ApiTags('auth')
@@ -13,6 +15,9 @@ export class AuthController {
   @Post('login')
   @UseGuards(LocalAuthGuard)
   @ApiTags('auth')
+  @ApiBody({ type: LoginInputDto })
+  @ApiResponse({ status: HttpStatus.OK, type: LoginOutputDto })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED })
   async login(@Request() req: any) {
     return this.authService.login(req.user);
   }
