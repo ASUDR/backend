@@ -1,11 +1,17 @@
 import {
+  IsArray,
+  IsInt,
   IsNotEmpty,
   IsOptional,
+  IsPositive,
   IsString,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IdDto } from 'src/app/dto/common.id.dto';
 
 export class CreateAdminDto {
   @ApiProperty({
@@ -48,10 +54,13 @@ export class CreateAdminDto {
   patronymic?: string;
 
   @ApiProperty()
-  @IsString()
+  @IsInt()
+  @IsPositive()
   roleId: number;
 
   @ApiProperty()
-  @IsString({ each: true })
-  facultiesIds: Array<number>;
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => IdDto)
+  faculties: Array<IdDto>;
 }

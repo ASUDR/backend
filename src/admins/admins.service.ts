@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/return-await */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindConditions, Repository } from 'typeorm';
@@ -12,8 +13,8 @@ export class AdminsService {
     private readonly adminsRepository: Repository<Admin>,
   ) {}
 
-  async create(data: CreateAdminDto): Promise<Admin> {
-    const admin = this.adminsRepository.create(data);
+  async create(dto: CreateAdminDto): Promise<Admin> {
+    const admin = this.adminsRepository.create(dto);
     await this.adminsRepository.save(admin);
     return this.findOne({ id: admin.id });
   }
