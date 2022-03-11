@@ -23,7 +23,6 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
-  @ApiTags('auth')
   @ApiBody({ type: LoginInputDto })
   @ApiResponse({ status: HttpStatus.OK, type: LoginOutputDto })
   async login(@Request() req: any) {
