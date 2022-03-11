@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Faculty } from 'src/faculties/entities/faculty.entity';
 import { Role } from 'src/roles/entities/role.entity';
+import * as bcrypt from 'bcryptjs';
 import {
   Entity,
   Column,
@@ -9,6 +10,7 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
+  BeforeInsert,
 } from 'typeorm';
 
 @Entity()
@@ -50,4 +52,9 @@ export class Admin extends CommonEntity {
   })
   @JoinTable({ name: 'admins_to_faculties' })
   faculties: Array<Faculty>;
+
+  @BeforeInsert()
+  async beforeInsert() {
+    this.password = await bcrypt.hash(this.password, +process.env.HASH_ROUNDS);
+  }
 }

@@ -17,7 +17,7 @@ import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
 
 @Controller('admins')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('admins')
 @ApiBearerAuth()
 @ApiResponse({

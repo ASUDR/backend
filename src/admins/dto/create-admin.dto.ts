@@ -1,6 +1,8 @@
 import {
+  IsInt,
   IsNotEmpty,
   IsOptional,
+  IsPositive,
   IsString,
   MaxLength,
   MinLength,
@@ -48,10 +50,12 @@ export class CreateAdminDto {
   patronymic?: string;
 
   @ApiProperty()
-  @IsString()
+  @IsInt()
+  @IsPositive()
   roleId: number;
 
   @ApiProperty()
-  @IsString({ each: true })
+  @IsInt({ each: true })
+  @IsPositive({ each: true })
   facultiesIds: Array<number>;
 }
