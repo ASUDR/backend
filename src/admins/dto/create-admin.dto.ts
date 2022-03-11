@@ -1,5 +1,9 @@
 import {
-  IsNotEmpty, IsOptional, IsString, MaxLength, MinLength,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -9,7 +13,7 @@ export class CreateAdminDto {
   })
   @IsString()
   @MaxLength(64)
-    login: string;
+  login: string;
 
   @ApiProperty({
     maxLength: 128,
@@ -17,7 +21,7 @@ export class CreateAdminDto {
   @IsString()
   @MinLength(8)
   @MaxLength(128)
-    password: string;
+  password: string;
 
   @ApiProperty({
     maxLength: 64,
@@ -25,7 +29,7 @@ export class CreateAdminDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(64)
-    firstName: string;
+  firstName: string;
 
   @ApiProperty({
     maxLength: 64,
@@ -33,7 +37,7 @@ export class CreateAdminDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(64)
-    lastName: string;
+  lastName: string;
 
   @ApiPropertyOptional({
     maxLength: 64,
@@ -41,13 +45,13 @@ export class CreateAdminDto {
   @IsOptional()
   @IsString()
   @MaxLength(64)
-    patronymic?: string;
+  patronymic?: string;
 
   @ApiProperty()
   @IsString()
-    roleId: number;
+  roleId: number;
 
   @ApiProperty()
   @IsString({ each: true })
-    facultiesIds: Array<number>;
+  facultiesIds: Array<number>;
 }

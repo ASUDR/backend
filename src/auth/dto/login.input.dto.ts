@@ -7,12 +7,12 @@ export class LoginInputDto {
   })
   @IsString()
   @IsNotEmpty()
-    login: string;
+  login: string;
 
   @ApiProperty({
     maxLength: 128,
   })
   @IsString()
   @IsNotEmpty()
-    password: string;
+  password: string;
 }

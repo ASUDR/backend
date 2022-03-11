@@ -14,7 +14,7 @@ export class CreateLodgerDto {
   })
   @IsString()
   @MaxLength(64)
-    login: string;
+  login: string;
 
   @ApiProperty({
     minLength: 8,
@@ -23,24 +23,24 @@ export class CreateLodgerDto {
   @IsString()
   @MinLength(8)
   @MaxLength(128)
-    password: string;
+  password: string;
 
   @ApiProperty()
   @IsInt()
-    contractId: number;
+  contractId: number;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsPhoneNumber()
-    phone?: string;
+  phone?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsInt()
-    groupId?: number;
+  groupId?: number;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsInt()
-    countryId?: number;
+  countryId?: number;
 }

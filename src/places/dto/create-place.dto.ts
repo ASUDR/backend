@@ -1,6 +1,4 @@
-import {
-  IsNotEmpty, IsNumber, IsString, MaxLength,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreatePlaceDto {
@@ -10,9 +8,9 @@ export class CreatePlaceDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(64)
-    name: string;
+  name: string;
 
   @ApiProperty()
   @IsNumber()
-    roomId: number;
+  roomId: number;
 }

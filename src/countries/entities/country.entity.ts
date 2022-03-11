@@ -7,9 +7,9 @@ import { Entity, Column, OneToMany } from 'typeorm';
 export class Country extends CommonEntity {
   @ApiProperty({ maxLength: 64 })
   @Column('varchar', { length: 64, unique: true })
-    name: string;
+  name: string;
 
   @ApiProperty({ type: () => [Lodger] })
   @OneToMany(() => Lodger, (lodger) => lodger.dormitory)
-    lodgers: Array<Lodger>;
+  lodgers: Array<Lodger>;
 }

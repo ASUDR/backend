@@ -10,7 +10,7 @@ export class CountriesService {
   constructor(
     @InjectRepository(Country)
     private readonly countriesRepository: Repository<Country>,
-  ) { }
+  ) {}
 
   async create(data: CreateCountryDto): Promise<Country> {
     const country = this.countriesRepository.create(data);

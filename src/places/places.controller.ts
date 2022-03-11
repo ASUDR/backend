@@ -3,46 +3,67 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
+import { Place } from './entities/place.entity';
 import { PlacesService } from './places.service';
 
-@ApiTags('places')
-@ApiBearerAuth()
 @Controller('places')
 @UseGuards(JwtAuthGuard)
+@ApiTags('places')
+@ApiBearerAuth()
+@ApiResponse({
+  status: HttpStatus.UNAUTHORIZED,
+  description: 'Unauthorized',
+})
+@ApiResponse({
+  status: HttpStatus.INTERNAL_SERVER_ERROR,
+  description: 'Internal Server Error',
+})
 export class PlacesController {
   constructor(private readonly placesService: PlacesService) {}
 
   @Post()
-  async create(@Body() dto: CreatePlaceDto) {
+  @ApiResponse({ status: HttpStatus.CREATED, type: Place })
+  async create(@Body() dto: CreatePlaceDto): Promise<Place> {
     return this.placesService.create(dto);
   }
 
   @Get()
-  async findAll() {
+  @ApiResponse({ status: HttpStatus.OK, type: [Place] })
+  async findAll(): Promise<Array<Place>> {
     return this.placesService.findMany();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Place })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async findOne(@Param('id') id: string): Promise<Place> {
     return this.placesService.findOne({ id: +id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdatePlaceDto) {
+  @ApiResponse({ status: HttpStatus.OK, type: Place })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdatePlaceDto,
+  ): Promise<Place> {
     return this.placesService.update(+id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Place })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async remove(@Param('id') id: string): Promise<Place> {
     return this.placesService.remove(+id);
   }
 }

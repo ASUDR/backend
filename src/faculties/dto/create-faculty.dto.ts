@@ -8,5 +8,5 @@ export class CreateFacultyDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(64)
-    name: string;
+  name: string;
 }
