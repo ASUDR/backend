@@ -49,7 +49,10 @@ export class FloorsController {
   @ApiResponse({ status: HttpStatus.OK, type: Floor })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateFloorDto): Promise<Floor> {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateFloorDto,
+  ): Promise<Floor> {
     return this.floorsService.update(+id, dto);
   }
 

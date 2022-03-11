@@ -4,81 +4,79 @@ import { Country } from 'src/countries/entities/country.entity';
 import { Dormitory } from 'src/dormitories/entities/dormitory.entity';
 import { Group } from 'src/groups/entities/group.entity';
 import { Place } from 'src/places/entities/place.entity';
-import {
-  Entity, Column, ManyToOne, JoinColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Lodger extends CommonEntity {
   @ApiProperty()
   @Column('varchar', { length: 64, unique: true })
-    login: string;
+  login: string;
 
   @ApiProperty()
   @Column('varchar', { length: 128 })
-    password: string;
+  password: string;
 
   @ApiProperty()
   @Column('varchar', { length: 64 })
-    lastName: string;
+  lastName: string;
 
   @ApiProperty()
   @Column('varchar', { length: 64 })
-    firstName: string;
+  firstName: string;
 
   @ApiPropertyOptional()
   @Column('varchar', { length: 64, nullable: true })
-    patronymic?: string;
+  patronymic?: string;
 
   @ApiPropertyOptional()
   @Column('varchar', { length: 11, nullable: true })
-    phone?: string;
+  phone?: string;
 
   @ApiProperty()
   @Column()
-    contractId: number;
+  contractId: number;
 
   @ApiPropertyOptional()
   @Column({ nullable: true })
-    contractDate?: Date;
+  contractDate?: Date;
 
   @ManyToOne(() => Dormitory, (dorm) => dorm.lodgers, {
     eager: true,
   })
   @JoinColumn({ name: 'dormitoryId' })
-    dormitory: Dormitory;
+  dormitory: Dormitory;
 
   @ApiPropertyOptional()
   @Column({ nullable: true })
-    dormitoryId?: number;
+  dormitoryId?: number;
 
   @ManyToOne(() => Place, (place) => place.lodgers, {
     eager: true,
   })
   @JoinColumn({ name: 'placeId' })
-    place: Place;
+  place: Place;
 
   @ApiPropertyOptional()
   @Column({ nullable: true })
-    placeId?: number;
+  placeId?: number;
 
   @ManyToOne(() => Group, (group) => group.lodgers, {
     eager: true,
   })
   @JoinColumn({ name: 'groupId' })
-    group: Place;
+  group: Place;
 
   @ApiPropertyOptional()
   @Column({ nullable: true })
-    groupId?: number;
+  groupId?: number;
 
   @ManyToOne(() => Country, (country) => country.lodgers, {
     eager: true,
   })
   @JoinColumn({ name: 'countryId' })
-    country: Place;
+  country: Place;
 
   @ApiPropertyOptional()
   @Column({ nullable: true })
-    countryId?: number;
+  countryId?: number;
 }

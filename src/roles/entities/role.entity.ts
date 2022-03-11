@@ -7,9 +7,9 @@ import { Entity, Column, OneToMany } from 'typeorm';
 export class Role extends CommonEntity {
   @ApiProperty()
   @Column('varchar', { length: 64, unique: true })
-    name: string;
+  name: string;
 
   @ApiProperty({ type: () => [Admin] })
   @OneToMany(() => Admin, (admin) => admin.role)
-    admins: Array<Admin>;
+  admins: Array<Admin>;
 }

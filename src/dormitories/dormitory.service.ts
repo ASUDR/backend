@@ -18,7 +18,9 @@ export class DormitoriesService {
     return this.findOne({ id: dormitory.id });
   }
 
-  async findMany(filter?: FindConditions<Dormitory>): Promise<Array<Dormitory>> {
+  async findMany(
+    filter?: FindConditions<Dormitory>,
+  ): Promise<Array<Dormitory>> {
     return this.dormitoriesRepository.find(filter);
   }
 

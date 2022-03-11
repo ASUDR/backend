@@ -49,7 +49,10 @@ export class FacultiesController {
   @ApiResponse({ status: HttpStatus.OK, type: Faculty })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateFacultyDto): Promise<Faculty> {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateFacultyDto,
+  ): Promise<Faculty> {
     return this.facultiesService.update(+id, dto);
   }
 

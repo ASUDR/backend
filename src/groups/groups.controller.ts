@@ -49,7 +49,10 @@ export class GroupsController {
   @ApiResponse({ status: HttpStatus.OK, type: Group })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateGroupDto): Promise<Group> {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateGroupDto,
+  ): Promise<Group> {
     return this.groupsService.update(+id, dto);
   }
 

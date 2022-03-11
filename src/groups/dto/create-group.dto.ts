@@ -1,6 +1,4 @@
-import {
-  IsNotEmpty, IsNumber, IsString, MaxLength,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateGroupDto {
@@ -10,9 +8,9 @@ export class CreateGroupDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(64)
-    name: string;
+  name: string;
 
   @ApiProperty()
   @IsNumber()
-    facultyId: number;
+  facultyId: number;
 }

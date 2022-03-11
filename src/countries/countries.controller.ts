@@ -47,7 +47,10 @@ export class CountriesController {
   @ApiResponse({ status: HttpStatus.OK, type: Country })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateCountryDto): Promise<Country> {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateCountryDto,
+  ): Promise<Country> {
     return this.countriesService.update(+id, dto);
   }
 

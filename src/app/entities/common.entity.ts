@@ -10,17 +10,17 @@ import {
 export class CommonEntity extends BaseEntity {
   @ApiProperty({ description: 'primary key' })
   @PrimaryGeneratedColumn()
-    id: number;
+  id: number;
 
   @ApiProperty({ description: 'created date' })
   @CreateDateColumn()
-    createdAt: Date;
+  createdAt: Date;
 
   @ApiProperty({ description: 'updated date' })
   @UpdateDateColumn()
-    updatedAt: Date;
+  updatedAt: Date;
 
   @ApiProperty({ description: 'deleted date' })
   @DeleteDateColumn()
-    deletedAt: Date;
+  deletedAt: Date;
 }

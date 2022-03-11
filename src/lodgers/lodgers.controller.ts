@@ -49,7 +49,10 @@ export class LodgersController {
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateLodgerDto): Promise<Lodger> {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateLodgerDto,
+  ): Promise<Lodger> {
     return this.lodgersService.update(+id, dto);
   }
 

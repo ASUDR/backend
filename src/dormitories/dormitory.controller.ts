@@ -49,7 +49,10 @@ export class DormitoriesController {
   @ApiResponse({ status: HttpStatus.OK, type: Dormitory })
   @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
-  async update(@Param('id') id: string, @Body() dto: UpdateDormitoryDto): Promise<Dormitory> {
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateDormitoryDto,
+  ): Promise<Dormitory> {
     return this.dormitoriesService.update(+id, dto);
   }
 
