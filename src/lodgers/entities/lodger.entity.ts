@@ -29,7 +29,7 @@ export class Lodger extends CommonEntity {
   patronymic?: string;
 
   @ApiPropertyOptional()
-  @Column('varchar', { length: 11, nullable: true })
+  @Column('varchar', { length: 12, nullable: true })
   phone?: string;
 
   @ApiProperty()

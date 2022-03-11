@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -6,8 +7,11 @@ import {
   IsString,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { IdDto } from 'src/app/dto/common.id.dto';
 
 export class CreateAdminDto {
   @ApiProperty({
@@ -55,7 +59,8 @@ export class CreateAdminDto {
   roleId: number;
 
   @ApiProperty()
-  @IsInt({ each: true })
-  @IsPositive({ each: true })
-  facultiesIds: Array<number>;
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => IdDto)
+  faculties: Array<IdDto>;
 }

@@ -20,7 +20,7 @@ export class Admin extends CommonEntity {
   login: string;
 
   @ApiProperty()
-  @Column('varchar', { length: 128 })
+  @Column('varchar', { length: 60 })
   password: string;
 
   @ApiProperty()
@@ -49,6 +49,7 @@ export class Admin extends CommonEntity {
   @ApiProperty({ type: () => [Faculty] })
   @ManyToMany(() => Faculty, (faculty) => faculty.admins, {
     eager: true,
+    cascade: true,
   })
   @JoinTable({ name: 'admins_to_faculties' })
   faculties: Array<Faculty>;

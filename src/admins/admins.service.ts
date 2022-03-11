@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/return-await */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Faculty } from 'src/faculties/entities/faculty.entity';
-import { FacultiesService } from 'src/faculties/faculties.service';
 import { FindConditions, Repository } from 'typeorm';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
@@ -13,22 +11,11 @@ export class AdminsService {
   constructor(
     @InjectRepository(Admin)
     private readonly adminsRepository: Repository<Admin>,
-    private readonly facultiesService: FacultiesService,
   ) {}
 
   async create(dto: CreateAdminDto): Promise<Admin> {
-    const { facultiesIds, ...data } = dto;
-    const faculties: Array<Faculty> = await Promise.all(
-      facultiesIds.map(async (id) => this.facultiesService.findOne({ id })),
-    );
-    const obj = { ...data, faculties };
-    console.log('obj', obj);
-    const admin = this.adminsRepository.create(data);
+    const admin = this.adminsRepository.create(dto);
     await this.adminsRepository.save(admin);
-    console.log('after save');
-    admin.faculties = faculties;
-    await this.adminsRepository.save(admin);
-    console.log('after save', admin);
     return this.findOne({ id: admin.id });
   }
 
