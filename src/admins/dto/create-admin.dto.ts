@@ -58,7 +58,7 @@ export class CreateAdminDto {
   @IsPositive()
   roleId: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => [IdDto] })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => IdDto)
