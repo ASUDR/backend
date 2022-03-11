@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   HttpStatus,
-  InternalServerErrorException,
   Param,
   Patch,
   Post,
@@ -22,9 +21,12 @@ import { Admin } from './entities/admin.entity';
 @ApiTags('admins')
 @ApiBearerAuth()
 @ApiResponse({
+  status: HttpStatus.UNAUTHORIZED,
+  description: 'Unauthorized',
+})
+@ApiResponse({
   status: HttpStatus.INTERNAL_SERVER_ERROR,
   description: 'Internal Server Error',
-  type: InternalServerErrorException,
 })
 export class AdminsController {
   constructor(private readonly adminsService: AdminsService) {}

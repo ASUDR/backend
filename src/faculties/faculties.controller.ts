@@ -16,30 +16,35 @@ import { UpdateFacultyDto } from './dto/update-faculty.dto';
 import { Faculty } from './entities/faculty.entity';
 import { FacultiesService } from './faculties.service';
 
-@ApiTags('faculties')
-@ApiBearerAuth()
 @Controller('faculties')
 @UseGuards(JwtAuthGuard)
+@ApiTags('faculties')
+@ApiBearerAuth()
+@ApiResponse({
+  status: HttpStatus.UNAUTHORIZED,
+  description: 'Unauthorized',
+})
+@ApiResponse({
+  status: HttpStatus.INTERNAL_SERVER_ERROR,
+  description: 'Internal Server Error',
+})
 export class FacultiesController {
   constructor(private readonly facultiesService: FacultiesService) {}
 
   @Post()
   @ApiResponse({ status: HttpStatus.CREATED, type: Faculty })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   async create(@Body() dto: CreateFacultyDto): Promise<Faculty> {
     return this.facultiesService.create(dto);
   }
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Faculty] })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   async findAll(): Promise<Array<Faculty>> {
     return this.facultiesService.findMany();
   }
 
   @Get(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Faculty })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
   async findOne(@Param('id') id: string): Promise<Faculty> {
     return this.facultiesService.findOne({ id: +id });
@@ -47,7 +52,6 @@ export class FacultiesController {
 
   @Patch(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Faculty })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
   async update(
     @Param('id') id: string,
@@ -58,7 +62,6 @@ export class FacultiesController {
 
   @Delete(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Faculty })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
   async remove(@Param('id') id: string): Promise<Faculty> {
     return this.facultiesService.remove(+id);

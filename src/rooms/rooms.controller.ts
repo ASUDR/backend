@@ -3,46 +3,67 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { Room } from './entities/room.entity';
 import { RoomsService } from './rooms.service';
 
-@ApiTags('rooms')
-@ApiBearerAuth()
 @Controller('rooms')
 @UseGuards(JwtAuthGuard)
+@ApiTags('rooms')
+@ApiBearerAuth()
+@ApiResponse({
+  status: HttpStatus.UNAUTHORIZED,
+  description: 'Unauthorized',
+})
+@ApiResponse({
+  status: HttpStatus.INTERNAL_SERVER_ERROR,
+  description: 'Internal Server Error',
+})
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Post()
-  async create(@Body() dto: CreateRoomDto) {
+  @ApiResponse({ status: HttpStatus.CREATED, type: Room })
+  async create(@Body() dto: CreateRoomDto): Promise<Room> {
     return this.roomsService.create(dto);
   }
 
   @Get()
-  async findAll() {
+  @ApiResponse({ status: HttpStatus.OK, type: [Room] })
+  async findAll(): Promise<Array<Room>> {
     return this.roomsService.findMany();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Room })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async findOne(@Param('id') id: string): Promise<Room> {
     return this.roomsService.findOne({ id: +id });
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: UpdateRoomDto) {
+  @ApiResponse({ status: HttpStatus.OK, type: Room })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateRoomDto,
+  ): Promise<Room> {
     return this.roomsService.update(+id, dto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  @ApiResponse({ status: HttpStatus.OK, type: Room })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND })
+  async remove(@Param('id') id: string): Promise<Room> {
     return this.roomsService.remove(+id);
   }
 }

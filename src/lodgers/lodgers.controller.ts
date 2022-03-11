@@ -16,30 +16,35 @@ import { UpdateLodgerDto } from './dto/update-lodger.dto';
 import { Lodger } from './entities/lodger.entity';
 import { LodgersService } from './lodgers.service';
 
-@ApiTags('lodgers')
-@ApiBearerAuth()
 @Controller('lodgers')
 @UseGuards(JwtAuthGuard)
+@ApiTags('lodgers')
+@ApiBearerAuth()
+@ApiResponse({
+  status: HttpStatus.UNAUTHORIZED,
+  description: 'Unauthorized',
+})
+@ApiResponse({
+  status: HttpStatus.INTERNAL_SERVER_ERROR,
+  description: 'Internal Server Error',
+})
 export class LodgersController {
   constructor(private readonly lodgersService: LodgersService) {}
 
   @Post()
   @ApiResponse({ status: HttpStatus.CREATED, type: Lodger })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   async create(@Body() dto: CreateLodgerDto): Promise<Lodger> {
     return this.lodgersService.create(dto);
   }
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Lodger] })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   async findAll(): Promise<Array<Lodger>> {
     return this.lodgersService.findMany();
   }
 
   @Get(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
   async findOne(@Param('id') id: string): Promise<Lodger> {
     return this.lodgersService.findOne({ id: +id });
@@ -47,7 +52,6 @@ export class LodgersController {
 
   @Patch(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
   async update(
     @Param('id') id: string,
@@ -58,7 +62,6 @@ export class LodgersController {
 
   @Delete(':id')
   @ApiResponse({ status: HttpStatus.OK, type: Lodger })
-  @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR })
   @ApiResponse({ status: HttpStatus.NOT_FOUND })
   async remove(@Param('id') id: string): Promise<Lodger> {
     return this.lodgersService.remove(+id);

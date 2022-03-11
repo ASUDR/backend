@@ -17,7 +17,6 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 @ApiResponse({
   status: HttpStatus.UNAUTHORIZED,
   description: 'Unauthorized',
-  type: UnauthorizedException,
 })
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
