@@ -27,4 +27,4 @@ jobs:
             -d "$data" \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.TOKEN }}" \
-            $GITHUB_API_URL/repos/$PARENT_REPO/actions/workflows/$PARENT_ID/dispatches
+            $GITHUB_API_URL/repos/$GITHUB_REPOSITORY_OWNER/$PARENT_REPO/actions/workflows/$PARENT_ID/dispatches
