@@ -10,6 +10,7 @@ import {
   ManyToMany,
   JoinTable,
   JoinOptions,
+  JoinColumnOptions,
 } from 'typeorm';
 
 @Entity()
