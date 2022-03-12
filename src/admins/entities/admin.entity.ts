@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { CommonEntity } from 'src/app/entities/common.entity';
 import { Faculty } from 'src/faculties/entities/faculty.entity';
 import { Role } from 'src/roles/entities/role.entity';
-import * as bcrypt from 'bcryptjs';
 import {
   Entity,
   Column,
@@ -10,7 +9,6 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
-  BeforeInsert,
 } from 'typeorm';
 
 @Entity()
@@ -20,7 +18,7 @@ export class Admin extends CommonEntity {
   login: string;
 
   @ApiProperty()
-  @Column('varchar', { length: 60 })
+  @Column('varchar', { length: 128 })
   password: string;
 
   @ApiProperty()
@@ -49,13 +47,7 @@ export class Admin extends CommonEntity {
   @ApiProperty({ type: () => [Faculty] })
   @ManyToMany(() => Faculty, (faculty) => faculty.admins, {
     eager: true,
-    cascade: true,
   })
   @JoinTable({ name: 'admins_to_faculties' })
   faculties: Array<Faculty>;
-
-  @BeforeInsert()
-  async beforeInsert() {
-    this.password = await bcrypt.hash(this.password, +process.env.HASH_ROUNDS);
-  }
 }
