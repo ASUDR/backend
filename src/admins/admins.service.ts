@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/return-await */
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Scope } from '@nestjs/common';
+import { REQUEST } from '@nestjs/core';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, FindConditions, Repository } from 'typeorm';
+import { Request } from 'express';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class AdminsService {
   constructor(
+    @Inject(REQUEST) private readonly request: Request,
     @InjectRepository(Admin)
     private readonly adminsRepository: Repository<Admin>,
   ) {}
