@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/return-await */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindConditions, Repository } from 'typeorm';
-import { CreateAdminDto } from './dto/create-admin.dto';
+import { DeepPartial, FindConditions, Repository } from 'typeorm';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { Admin } from './entities/admin.entity';
 
@@ -13,7 +12,7 @@ export class AdminsService {
     private readonly adminsRepository: Repository<Admin>,
   ) {}
 
-  async create(dto: CreateAdminDto): Promise<Admin> {
+  async create(dto: DeepPartial<Admin>): Promise<Admin> {
     const admin = this.adminsRepository.create(dto);
     await this.adminsRepository.save(admin);
     return this.findOne({ id: admin.id });
