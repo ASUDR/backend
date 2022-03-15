@@ -1,2 +1,2 @@
 export * from './auth/login';
-// export * from './configs/db';
+export * from './tests/jest';
