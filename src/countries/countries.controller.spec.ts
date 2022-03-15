@@ -30,8 +30,8 @@ describe('CountriesController', () => {
       const result = new Promise<Array<Country>>((resolve) => {
         resolve([new Country()]);
       });
-      jest.spyOn(catsService, 'findMany').mockImplementation(() => result);
 
+      jest.spyOn(catsService, 'findMany').mockImplementation(() => result);
       expect(await catsController.findMany()).toBe(await result);
     });
   });
