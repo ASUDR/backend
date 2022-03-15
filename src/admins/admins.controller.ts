@@ -39,7 +39,7 @@ export class AdminsController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Admin] })
-  async findAll(): Promise<Array<Admin>> {
+  async findMany(): Promise<Array<Admin>> {
     return this.adminsService.findMany();
   }
 

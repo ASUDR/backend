@@ -39,7 +39,7 @@ export class DormitoriesController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Dormitory] })
-  async findAll(): Promise<Array<Dormitory>> {
+  async findMany(): Promise<Array<Dormitory>> {
     return this.dormitoriesService.findMany();
   }
 

@@ -39,7 +39,7 @@ export class FacultiesController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Faculty] })
-  async findAll(): Promise<Array<Faculty>> {
+  async findMany(): Promise<Array<Faculty>> {
     return this.facultiesService.findMany();
   }
 

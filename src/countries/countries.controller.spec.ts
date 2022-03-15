@@ -25,14 +25,14 @@ describe('CatsController', () => {
     catsController = moduleRef.get<CountriesController>(CountriesController);
   });
 
-  describe('findAll', () => {
+  describe('findMany', () => {
     it('should return an array countries', async () => {
       const result = new Promise<Array<Country>>((resolve) => {
         resolve([new Country()]);
       });
       jest.spyOn(catsService, 'findMany').mockImplementation(() => result);
 
-      expect(await catsController.findAll()).toBe(await result);
+      expect(await catsController.findMany()).toBe(await result);
     });
   });
 });

@@ -39,7 +39,7 @@ export class PlacesController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Place] })
-  async findAll(): Promise<Array<Place>> {
+  async findMany(): Promise<Array<Place>> {
     return this.placesService.findMany();
   }
 

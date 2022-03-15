@@ -39,7 +39,7 @@ export class CountriesController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Country] })
-  async findAll(): Promise<Array<Country>> {
+  async findMany(): Promise<Array<Country>> {
     return this.countriesService.findMany();
   }
 

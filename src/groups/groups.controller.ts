@@ -39,7 +39,7 @@ export class GroupsController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Group] })
-  async findAll(): Promise<Array<Group>> {
+  async findMany(): Promise<Array<Group>> {
     return this.groupsService.findMany();
   }
 

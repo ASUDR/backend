@@ -39,7 +39,7 @@ export class FloorsController {
 
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [Floor] })
-  async findAll(): Promise<Array<Floor>> {
+  async findMany(): Promise<Array<Floor>> {
     return this.floorsService.findMany();
   }
 
