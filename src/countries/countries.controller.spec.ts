@@ -5,7 +5,7 @@ import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
 import { Country } from './entities/country.entity';
 
-describe('CatsController', () => {
+describe('CountriesController', () => {
   let catsController: CountriesController;
   let catsService: CountriesService;
 
