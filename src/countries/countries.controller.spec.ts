@@ -6,8 +6,8 @@ import { CountriesService } from './countries.service';
 import { Country } from './entities/country.entity';
 
 describe('CountriesController', () => {
-  let catsController: CountriesController;
-  let catsService: CountriesService;
+  let countriesController: CountriesController;
+  let countriesService: CountriesService;
 
   beforeEach(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -21,8 +21,9 @@ describe('CountriesController', () => {
       ],
     }).compile();
 
-    catsService = moduleRef.get<CountriesService>(CountriesService);
-    catsController = moduleRef.get<CountriesController>(CountriesController);
+    countriesService = moduleRef.get<CountriesService>(CountriesService);
+    countriesController =
+      moduleRef.get<CountriesController>(CountriesController);
   });
 
   describe('findMany', () => {
@@ -31,8 +32,14 @@ describe('CountriesController', () => {
         resolve([new Country()]);
       });
 
-      jest.spyOn(catsService, 'findMany').mockImplementation(() => result);
-      expect(await catsController.findMany()).toBe(await result);
+      jest.spyOn(countriesService, 'findMany').mockImplementation(() => result);
+      expect(await countriesController.findMany()).toBe(await result);
+    });
+
+    it('should be called once', async () => {
+      jest.spyOn(countriesService, 'findMany');
+      await countriesController.findMany();
+      expect(jest.spyOn(countriesService, 'findMany')).toBeCalledTimes(1);
     });
   });
 });
