@@ -9,7 +9,9 @@ import {
   JoinColumn,
   ManyToMany,
   JoinTable,
+  BeforeInsert,
 } from 'typeorm';
+import bcrypt from 'bcryptjs';
 
 @Entity()
 export class Admin extends CommonEntity {
@@ -18,7 +20,7 @@ export class Admin extends CommonEntity {
   login: string;
 
   @ApiProperty()
-  @Column('varchar', { length: 128 })
+  @Column('varchar', { length: 60 })
   password: string;
 
   @ApiProperty()
@@ -50,4 +52,9 @@ export class Admin extends CommonEntity {
   })
   @JoinTable({ name: 'admins_to_faculties' })
   faculties: Array<Faculty>;
+
+  @BeforeInsert()
+  async beforeInsert() {
+    this.password = await bcrypt.hash(this.password, +process.env.HASH_ROUNDS);
+  }
 }
